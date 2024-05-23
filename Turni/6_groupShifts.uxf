@@ -1,0 +1,44 @@
+<diagram program="umletino" version="15.1"><zoom_level>4</zoom_level><help_text>Space for diagram not	es</help_text><element><id>UMLPackage</id><coordinates><x>134</x><y>120</y><w>36</w><h>28</h></coordinates><panel_attributes>UI</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>146</x><y>144</y><w>12</w><h>500</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;1230</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>262</x><y>128</y><w>116</w><h>20</h></coordinates><panel_attributes>shiftBoardMgr:
+ShiftBoardManager
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>318</x><y>160</y><w>8</w><h>464</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>318</x><y>144</y><w>12</w><h>504</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;1240</additional_attributes></element><element><id>Relation</id><coordinates><x>146</x><y>168</y><w>180</w><h>16</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+groupShifts(shifts: ArrayList&lt;Shift&gt;, lastAvailabilityDate:java.util.Date)</panel_attributes><additional_attributes>430;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>98</x><y>296</y><w>616</w><h>172</h></coordinates><panel_attributes>LOOP for all shift in shifts
+--
+fg=blue
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>158</x><y>312</y><w>120</w><h>16</h></coordinates><panel_attributes>fg=#761C8C
+[!user.isEventPlanner() || 
+!eventMgr.getService(shift).isOwnedBy(user)]
+style=wordwrap
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>130</x><y>308</y><w>564</w><h>140</h></coordinates><panel_attributes>alt 
+fg=#761C8C
+--
+
+
+
+
+
+
+-.
+
+fontsize=11
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>146</x><y>332</y><w>180</w><h>16</h></coordinates><panel_attributes>lt=&lt;.
+Throw UnauthorizedException	</panel_attributes><additional_attributes>10;20;430;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>494</x><y>128</y><w>76</w><h>20</h></coordinates><panel_attributes>group:
+Group
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>526</x><y>148</y><w>12</w><h>276</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;670</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>526</x><y>212</y><w>8</w><h>64</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>322</x><y>204</y><w>212</w><h>16</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+create()</panel_attributes><additional_attributes>510;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>322</x><y>268</y><w>212</w><h>16</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;.
+group</panel_attributes><additional_attributes>10;20;510;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>658</x><y>220</y><w>44</w><h>16</h></coordinates><panel_attributes>shiftsGrouped: 
+Set&lt;Shift&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>220</y><w>136</w><h>16</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;.
+create()</panel_attributes><additional_attributes>320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>244</y><w>128</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+this.lastAvailabilityDate = lastAvailabilityDate</panel_attributes><additional_attributes>10;50;50;50;50;10;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>526</x><y>376</y><w>8</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>322</x><y>368</y><w>212</w><h>16</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+addShift(shift)</panel_attributes><additional_attributes>510;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>674</x><y>232</y><w>12</w><h>196</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;470</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>674</x><y>396</y><w>8</w><h>12</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>388</y><w>152</w><h>16</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+add(shift)</panel_attributes><additional_attributes>360;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>322</x><y>476</y><w>88</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+this.groups.add(group)</panel_attributes><additional_attributes>10;80;70;80;70;10;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>322</x><y>508</y><w>8</w><h>12</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>390</x><y>128</y><w>84</w><h>20</h></coordinates><panel_attributes>userMgr:
+UserManager
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>426</x><y>172</y><w>8</w><h>8</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>322</x><y>164</y><w>112</w><h>16</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+getCurrentUser( )</panel_attributes><additional_attributes>260;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>322</x><y>172</y><w>112</w><h>16</h></coordinates><panel_attributes>lt=&lt;.
+user</panel_attributes><additional_attributes>10;20;260;20</additional_attributes></element><element><id>Relation</id><coordinates><x>426</x><y>144</y><w>12</w><h>48</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>322</x><y>532</y><w>96</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+noftifyGroupAdded(group)</panel_attributes><additional_attributes>10;80;70;80;70;10;10;10</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>230</x><y>572</y><w>316</w><h>32</h></coordinates><panel_attributes>LOOP for all er in eventReceivers
+fg=blue
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>322</x><y>564</y><w>8</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>326</x><y>584</y><w>208</w><h>16</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;
+updateGroupAdded(group)</panel_attributes><additional_attributes>10;20;500;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>526</x><y>592</y><w>8</w><h>8</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>494</x><y>536</y><w>76</w><h>20</h></coordinates><panel_attributes>er:
+ShiftEventManager	
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>526</x><y>552</y><w>12</w><h>64</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element></diagram>
