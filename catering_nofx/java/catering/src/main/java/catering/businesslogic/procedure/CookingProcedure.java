@@ -7,17 +7,7 @@ import java.util.Map;
 public abstract class CookingProcedure {
 
     private static ArrayList<CookingProcedure> cookingProcedures = new ArrayList<>();
-    private int id;
-    private String name;
 
-    public CookingProcedure(){
-
-    }
-
-    public CookingProcedure(String name){
-        id = 0;
-        this.name = name;
-    }
     public static ArrayList<CookingProcedure> loadAllProcedures(){
         cookingProcedures.addAll(Recipe.loadAllRecipes());
         cookingProcedures.addAll(Preparation.loadAllPreparations());
