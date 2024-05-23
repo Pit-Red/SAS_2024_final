@@ -1,4 +1,4 @@
-package catering.businesslogic.recipe;
+package catering.businesslogic.procedure;
 
 import catering.persistence.PersistenceManager;
 import catering.persistence.ResultHandler;
@@ -7,14 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Recipe {
+public class Recipe extends CookingProcedure{
     private static Map<Integer, Recipe> all = new HashMap<>();
-
     private int id;
     private String name;
 
     private Recipe() {
-
+        super();
     }
 
     public Recipe(String name) {
@@ -38,6 +37,7 @@ public class Recipe {
 
     public static ArrayList<Recipe> loadAllRecipes() {
         String query = "SELECT * FROM Recipes";
+
         PersistenceManager.executeQuery(query, new ResultHandler() {
             @Override
             public void handle(ResultSet rs) throws SQLException {
@@ -52,6 +52,7 @@ public class Recipe {
                 }
             }
         });
+
         ArrayList<Recipe> ret = new ArrayList<Recipe>(all.values());
         Collections.sort(ret, new Comparator<Recipe>() {
             @Override

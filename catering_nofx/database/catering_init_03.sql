@@ -170,6 +170,20 @@ CREATE TABLE `Recipes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `Preparations`
+--
+
+DROP TABLE IF EXISTS `Preparations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Preparations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` tinytext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `Recipes`
 --
 
