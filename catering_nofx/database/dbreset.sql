@@ -1,3 +1,8 @@
+USE catering;
+
+DELETE
+FROM Preparations
+WHERE true;
 DELETE
 FROM MenuItems
 WHERE true;
@@ -25,6 +30,7 @@ VALUES (80, 'Coffee break mattutino', 2, 1),
 /*!40000 ALTER TABLE `Menus`
     ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 /* Fill MenuSections */
 LOCK TABLES `MenuSections` WRITE;
@@ -68,6 +74,12 @@ VALUES (96, 80, 0, 'Croissant vuoti', 9, 0),
        (119, 86, 44, 'Torta Saint Honoré', 19, 1);
 /*!40000 ALTER TABLE `MenuItems`
     ENABLE KEYS */;
+UNLOCK TABLES;
+
+LOCK TABLES `Preparations` WRITE;
+INSERT INTO `Preparations`
+VALUES (0, 'Cioccolato'),
+       (1, 'Marmellata');
 UNLOCK TABLES;
 
 /* Fill MenuFeatures */

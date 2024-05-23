@@ -93,6 +93,7 @@ public class User {
     public static User loadUser(String username) {
         User u = new User();
         String userQuery = "SELECT * FROM Users WHERE username='"+username+"'";
+
         PersistenceManager.executeQuery(userQuery, new ResultHandler() {
             @Override
             public void handle(ResultSet rs) throws SQLException {

@@ -5,7 +5,9 @@ public class UserManager {
 
     public void fakeLogin(String username) //TODO: bisogna implementare il login vero!
     {
+
         this.currentUser = User.loadUser(username);
+
     }
 
     public User getCurrentUser() {
