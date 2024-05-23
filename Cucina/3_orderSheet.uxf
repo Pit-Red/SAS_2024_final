@@ -1,0 +1,49 @@
+<diagram program="umletino" version="15.1"><zoom_level>7</zoom_level><element><id>UMLPackage</id><coordinates><x>133</x><y>132</y><w>63</w><h>49</h></coordinates><panel_attributes>UI</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>252</x><y>146</y><w>203</w><h>35</h></coordinates><panel_attributes>kitchenTaskMgr:
+KitchenTaskManager</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>147</x><y>174</y><w>21</w><h>350</h></coordinates><panel_attributes>lt=.
+group=group-0</panel_attributes><additional_attributes>10;10;10;480</additional_attributes></element><element><id>Relation</id><coordinates><x>147</x><y>195</y><w>217</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+orderSheet (procedure, position)</panel_attributes><additional_attributes>290;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>174</y><w>21</w><h>350</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;480</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>350</x><y>209</y><w>14</w><h>280</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>21</x><y>265</y><w>700</w><h>245</h></coordinates><panel_attributes>alt 
+fg=#761C8C
+--
+
+
+-.
+
+
+
+
+-.
+
+fontsize=11
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>147</x><y>314</y><w>217</w><h>28</h></coordinates><panel_attributes>lt=&lt;.
+throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Text</id><coordinates><x>35</x><y>314</y><w>126</w><h>28</h></coordinates><panel_attributes>fg=#761C8C
+[kitchenTaskMgr.getCurrentSummarySheet() == null]
+style=wordwrap
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>560</x><y>104</y><w>168</w><h>35</h></coordinates><panel_attributes>
+currentSheet: SummarySheet</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>637</x><y>132</y><w>21</w><h>392</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;540</additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>356</y><w>294</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+containsPricedure (procedure)</panel_attributes><additional_attributes>400;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>637</x><y>370</y><w>14</w><h>91</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>377</y><w>294</w><h>28</h></coordinates><panel_attributes>lt=&lt;.
+pIsContained</panel_attributes><additional_attributes>10;20;400;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>84</x><y>405</y><w>602</w><h>98</h></coordinates><panel_attributes>alt 
+fg=#761C8C
+--
+
+
+-.
+
+fontsize=11
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>91</x><y>419</y><w>77</w><h>14</h></coordinates><panel_attributes>fg=#761C8C
+[!pIsContained]
+style=wordwrap
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>412</y><w>294</w><h>28</h></coordinates><panel_attributes>lt=&lt;.
+throw ItemNotFoundException</panel_attributes><additional_attributes>10;20;400;20</additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>447</y><w>294</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+orderProcedure (procedure,
+ position)</panel_attributes><additional_attributes>400;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>147</x><y>475</y><w>217</w><h>28</h></coordinates><panel_attributes>lt=&lt;.
+ok</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>392</x><y>62</y><w>196</w><h>35</h></coordinates><panel_attributes>userMgr:
+UserManager
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>483</x><y>90</y><w>21</w><h>196</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;260</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>483</x><y>230</y><w>14</w><h>21</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>216</y><w>140</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+getCurrentUser( )</panel_attributes><additional_attributes>180;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>237</y><w>140</w><h>28</h></coordinates><panel_attributes>lt=&lt;.
+user</panel_attributes><additional_attributes>10;20;180;20</additional_attributes></element><element><id>Relation</id><coordinates><x>147</x><y>272</y><w>217</w><h>28</h></coordinates><panel_attributes>lt=&lt;.
+throw UnathorizedException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Text</id><coordinates><x>49</x><y>265</y><w>105</w><h>35</h></coordinates><panel_attributes>fg=#761C8C
+[!user.isChef() || 
+!getCurrentService.
+isChefAssigned(user)]
+style=wordwrap
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element></diagram>

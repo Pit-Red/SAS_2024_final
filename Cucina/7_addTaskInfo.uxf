@@ -1,0 +1,82 @@
+<diagram program="umletino" version="15.1"><zoom_level>3</zoom_level><element><id>UMLPackage</id><coordinates><x>351</x><y>118</y><w>27</w><h>21</h></coordinates><panel_attributes>UI</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>136</y><w>9</w><h>375</h></coordinates><panel_attributes>lt=.
+group=group-0</panel_attributes><additional_attributes>10;10;10;1230</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>417</x><y>124</y><w>60</w><h>15</h></coordinates><panel_attributes>kitchenTaskMgr:
+KitchenTaskManager</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>145</y><w>90</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+addTaskInfo(task, estimate, amount, doses)</panel_attributes><additional_attributes>280;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>444</x><y>136</y><w>9</w><h>375</h></coordinates><panel_attributes>lt=.
+group=group-1</panel_attributes><additional_attributes>10;10;10;1230</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>444</x><y>151</y><w>6</w><h>345</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>630</x><y>223</y><w>60</w><h>15</h></coordinates><panel_attributes>listedTasks: 
+ArrayList&lt;Task&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>657</x><y>235</y><w>9</w><h>207</h></coordinates><panel_attributes>lt=.
+group=group-2</panel_attributes><additional_attributes>10;10;10;670</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>657</x><y>247</y><w>6</w><h>180</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>268</y><w>90</w><h>12</h></coordinates><panel_attributes>lt=&lt;.
+throw ItemNotFoundException</panel_attributes><additional_attributes>10;20;280;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>291</x><y>178</y><w>426</w><h>333</h></coordinates><panel_attributes>alt 
+fg=#761C8C
+--
+
+
+-.
+
+
+
+
+
+-.
+fontsize=11
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>321</x><y>265</y><w>42</w><h>15</h></coordinates><panel_attributes>fg=#761C8C
+
+[!taskContaines]
+style=wordwrap
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>573</x><y>310</y><w>60</w><h>15</h></coordinates><panel_attributes>
+task: Task</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>322</y><w>9</w><h>111</h></coordinates><panel_attributes>lt=.
+group=group-3</panel_attributes><additional_attributes>10;10;10;350</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>600</x><y>340</y><w>6</w><h>75</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>286</y><w>129</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+indexOf (task)</panel_attributes><additional_attributes>410;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>298</y><w>129</w><h>15</h></coordinates><panel_attributes>lt=&lt;.
+index
+</panel_attributes><additional_attributes>10;20;410;20</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>334</y><w>72</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+setTimeToComplete(estimate)</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>603</x><y>343</y><w>51</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+this.timeToComplete 
+					= estimate</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>421</y><w>129</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+set (index, task)</panel_attributes><additional_attributes>410;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>490</y><w>90</w><h>12</h></coordinates><panel_attributes>lt=&lt;.
+task</panel_attributes><additional_attributes>10;20;280;20</additional_attributes></element><element><id>Text</id><coordinates><x>300</x><y>199</y><w>57</w><h>15</h></coordinates><panel_attributes>fg=#761C8C
+[kitchenTaskMgr.getCurrentSummarySheet() == null]
+style=wordwrap
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>199</y><w>90</w><h>12</h></coordinates><panel_attributes>lt=&lt;.
+throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;280;20</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>241</y><w>129</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+contains (task)</panel_attributes><additional_attributes>410;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>253</y><w>129</w><h>15</h></coordinates><panel_attributes>lt=&lt;.
+taskContained
+</panel_attributes><additional_attributes>10;20;410;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>315</x><y>265</y><w>396</w><h>240</h></coordinates><panel_attributes>alt 
+fg=#761C8C
+--
+
+
+-.
+
+
+fontsize=11
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>666</x><y>124</y><w>57</w><h>15</h></coordinates><panel_attributes>er:
+MenuEventReceiver
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>693</x><y>136</y><w>9</w><h>375</h></coordinates><panel_attributes>lt=.
+</panel_attributes><additional_attributes>10;10;10;1230</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>693</x><y>475</y><w>6</w><h>6</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>469</y><w>249</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+updateTaskUpdated(this.currentSummarySheet, task)</panel_attributes><additional_attributes>810;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>408</x><y>460</y><w>297</w><h>27</h></coordinates><panel_attributes>for each
+er in 
+eventReceivers
+fg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>447</x><y>457</y><w>6</w><h>30</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>439</y><w>60</w><h>24</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+notifyTaskUpdated(task)</panel_attributes><additional_attributes>20;60;50;60;50;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>154</y><w>63</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+getCurrentUser( )</panel_attributes><additional_attributes>190;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>163</y><w>63</w><h>12</h></coordinates><panel_attributes>lt=&lt;.
+user</panel_attributes><additional_attributes>10;20;190;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>504</x><y>160</y><w>6</w><h>9</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>504</x><y>136</y><w>9</w><h>48</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>486</x><y>124</y><w>42</w><h>15</h></coordinates><panel_attributes>userMgr:
+UserManager
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>309</x><y>178</y><w>45</w><h>15</h></coordinates><panel_attributes>fg=#761C8C
+[!user.isChef() || 
+!getCurrentService.
+isChefAssigned(user)]
+style=wordwrap
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>181</y><w>90</w><h>12</h></coordinates><panel_attributes>lt=&lt;.
+throw UnathorizedException</panel_attributes><additional_attributes>10;20;280;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>507</x><y>100</y><w>54</w><h>15</h></coordinates><panel_attributes>currentSummarySheet: 
+SummarySheet</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>531</x><y>112</y><w>9</w><h>339</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;1110</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>531</x><y>226</y><w>6</w><h>210</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>220</y><w>90</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+addTaskInfo(task, estimate, amount, doses)</panel_attributes><additional_attributes>280;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>430</y><w>90</w><h>15</h></coordinates><panel_attributes>lt=&lt;.
+task
+</panel_attributes><additional_attributes>10;20;280;20</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>409</y><w>72</w><h>15</h></coordinates><panel_attributes>lt=&lt;.
+task
+</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>358</y><w>72</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+setAmount(amount)</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>603</x><y>367</y><w>39</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+this.amount 
+					= amount</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>603</x><y>391</y><w>36</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+this.doses 
+					= doses</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>534</x><y>382</y><w>72</w><h>12</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+setDoses(doses)</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element></diagram>
