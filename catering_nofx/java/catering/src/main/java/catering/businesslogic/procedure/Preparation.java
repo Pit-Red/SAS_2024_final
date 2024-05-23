@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Preparation extends CookingProcedure {
+public class Preparation extends Procedure {
 
     private static Map<Integer, Preparation> all = new HashMap<>();
     private int id;
@@ -81,5 +81,10 @@ public class Preparation extends CookingProcedure {
             }
         });
         return rec;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Preparation && ((Preparation) obj).getId() == this.id;
     }
 }

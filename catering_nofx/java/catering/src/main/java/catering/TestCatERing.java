@@ -6,7 +6,8 @@ import catering.businesslogic.event.EventInfo;
 import catering.businesslogic.event.ServiceInfo;
 import catering.businesslogic.menu.Menu;
 import catering.businesslogic.menu.Section;
-import catering.businesslogic.recipe.Recipe;
+import catering.businesslogic.procedure.Procedure;
+import catering.businesslogic.procedure.Recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,17 +42,17 @@ public class TestCatERing {
             System.out.println("");
 
             System.out.println("\nTEST GET RECIPES AND INSERT ITEM IN SECTION");
-            ArrayList<Recipe> recipes = CatERing.getInstance().getRecipeManager().getRecipes();
-            CatERing.getInstance().getMenuManager().insertItem(recipes.get(0), antipasti);
-            CatERing.getInstance().getMenuManager().insertItem(recipes.get(1), antipasti);
-            CatERing.getInstance().getMenuManager().insertItem(recipes.get(2), antipasti);
-            CatERing.getInstance().getMenuManager().insertItem(recipes.get(6), secondi);
-            CatERing.getInstance().getMenuManager().insertItem(recipes.get(7), secondi);
+            ArrayList<Procedure> recipes = CatERing.getInstance().getProcedureManager().getProcedures();
+            CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(0), antipasti);
+            CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(1), antipasti);
+            CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(2), antipasti);
+            CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(6), secondi);
+            CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(7), secondi);
             System.out.println(m.testString());
 
             System.out.println("\nTEST INSERT FREE ITEM");
-            CatERing.getInstance().getMenuManager().insertItem(recipes.get(3));
-            CatERing.getInstance().getMenuManager().insertItem(recipes.get(4));
+            CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(3));
+            CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(4));
             System.out.println(m.testString());
 
             System.out.println("\nTEST EDIT FEATURES");

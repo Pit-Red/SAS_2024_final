@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Recipe extends CookingProcedure{
+public class Recipe extends Procedure {
     private static Map<Integer, Recipe> all = new HashMap<>();
     private int id;
     private String name;
@@ -33,6 +33,11 @@ public class Recipe extends CookingProcedure{
         return name;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Recipe && ((Recipe) obj).getId() == this.id;
+    }
+
     // STATIC METHODS FOR PERSISTENCE
 
     public static ArrayList<Recipe> loadAllRecipes() {
@@ -44,6 +49,7 @@ public class Recipe extends CookingProcedure{
                 int id = rs.getInt("id");
                 if (all.containsKey(id)) {
                     Recipe rec = all.get(id);
+
                     rec.name = rs.getString("name");
                 } else {
                     Recipe rec = new Recipe(rs.getString("name"));

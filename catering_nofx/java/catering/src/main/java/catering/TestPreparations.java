@@ -1,11 +1,10 @@
 package catering;
 
-import catering.businesslogic.procedure.CookingProcedure;
-import catering.businesslogic.procedure.CookingProcedureManager;
+import catering.businesslogic.procedure.ProcedureManager;
 
 public class TestPreparations {
     public static void main(String[] args) {
-        CookingProcedureManager cpm = new CookingProcedureManager();
+        ProcedureManager cpm = new ProcedureManager();
         System.out.println(cpm.getPreparations());
     }
 }
