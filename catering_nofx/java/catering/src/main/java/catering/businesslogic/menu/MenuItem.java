@@ -15,26 +15,26 @@ import java.util.List;
 public class MenuItem {
     private int id;
     private String description;
-    private CookingProcedure procedure;
+    private Recipe recipe;
 
     private MenuItem() {
 
     }
 
-    public MenuItem(CookingProcedure proc) {
-        this(proc, proc.getName());
+    public MenuItem(Recipe recipe) {
+        this(recipe, recipe.getName());
     }
 
-    public MenuItem(CookingProcedure proc, String desc) {
+    public MenuItem(Recipe recipe, String desc) {
         id = 0;
-        procedure = proc;
+        this.recipe = recipe;
         description = desc;
     }
 
     public MenuItem(MenuItem mi) {
         this.id = 0;
         this.description = mi.description;
-        this.procedure = mi.procedure;
+        this.recipe = mi.recipe;
     }
 
     public static void saveAllNewItems(int menuid, int sectionid, List<MenuItem> items) {
@@ -45,7 +45,7 @@ public class MenuItem {
                 ps.setInt(1, menuid);
                 ps.setInt(2, sectionid);
                 ps.setString(3, PersistenceManager.escapeString(items.get(batchCount).description));
-                ps.setInt(4, items.get(batchCount).procedure.getId());
+                ps.setInt(4, items.get(batchCount).recipe.getId());
                 ps.setInt(5, batchCount);
             }
 
@@ -63,7 +63,7 @@ public class MenuItem {
                 sectionid +
                 ", " +
                 "'" + PersistenceManager.escapeString(mi.description) + "', " +
-                +mi.procedure.getId() + ", " +
+                +mi.recipe.getId() + ", " +
                 +pos + ");";
         PersistenceManager.executeUpdate(itemInsert);
 
@@ -86,7 +86,7 @@ public class MenuItem {
 
         // carico qui le procedure perché non posso innestare due connessioni al DB
         for (int i = 0; i < result.size(); i++) {
-            result.get(i).procedure = CookingProcedure.loadById(proc_ids.get(i));
+            result.get(i).recipe = Recipe.loadRecipeById(proc_ids.get(i));
         }
 
         return result;
@@ -127,11 +127,11 @@ public class MenuItem {
         this.description = description;
     }
 
-    public CookingProcedure getItemProcedure() {
-        return procedure;
+    public Recipe getItemRecipe() {
+        return recipe;
     }
 
-    public void setItem(CookingProcedure procedure) {
-        this.procedure = procedure;
+    public void setItem(Recipe recipe) {
+        this.recipe = recipe;
     }
 }
