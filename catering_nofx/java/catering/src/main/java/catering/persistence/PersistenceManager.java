@@ -38,17 +38,13 @@ public class PersistenceManager {
     }
 
     public static void executeQuery(String query, ResultHandler handler) {
-
         try (Connection conn = DriverManager.getConnection(url, username, password);
-
              PreparedStatement ps = conn.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
-
             while (rs.next()) {
                 handler.handle(rs);
             }
         } catch (SQLException ex) {
-
             ex.printStackTrace();
         }
 

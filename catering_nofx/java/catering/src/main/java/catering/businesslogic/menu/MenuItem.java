@@ -1,5 +1,6 @@
 package catering.businesslogic.menu;
 
+import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.Recipe;
 import catering.persistence.BatchUpdateHandler;
 import catering.persistence.PersistenceManager;
@@ -14,57 +15,27 @@ import java.util.List;
 public class MenuItem {
     private int id;
     private String description;
-    private Recipe itemRecipe;
+    private CookingProcedure procedure;
 
     private MenuItem() {
 
     }
 
-    public MenuItem(Recipe rec) {
-        this(rec, rec.getName());
+    public MenuItem(CookingProcedure proc) {
+        this(proc, proc.getName());
     }
 
-    public MenuItem(Recipe rec, String desc) {
+    public MenuItem(CookingProcedure proc, String desc) {
         id = 0;
-        itemRecipe = rec;
+        procedure = proc;
         description = desc;
     }
 
     public MenuItem(MenuItem mi) {
         this.id = 0;
         this.description = mi.description;
-        this.itemRecipe = mi.itemRecipe;
+        this.procedure = mi.procedure;
     }
-
-    public int getId() {
-        return id;
-    }
-
-
-    public String toString() {
-        return description;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Recipe getItemRecipe() {
-        return itemRecipe;
-    }
-
-    public void setItemRecipe(Recipe itemRecipe) {
-        this.itemRecipe = itemRecipe;
-    }
-
-
-
-    // STATIC METHODS FOR PERSISTENCE
 
     public static void saveAllNewItems(int menuid, int sectionid, List<MenuItem> items) {
         String itemInsert = "INSERT INTO catering.MenuItems (menu_id, section_id, description, recipe_id, position) VALUES (?, ?, ?, ?, ?);";
@@ -74,7 +45,7 @@ public class MenuItem {
                 ps.setInt(1, menuid);
                 ps.setInt(2, sectionid);
                 ps.setString(3, PersistenceManager.escapeString(items.get(batchCount).description));
-                ps.setInt(4, items.get(batchCount).itemRecipe.getId());
+                ps.setInt(4, items.get(batchCount).procedure.getId());
                 ps.setInt(5, batchCount);
             }
 
@@ -84,6 +55,7 @@ public class MenuItem {
             }
         });
     }
+
     public static void saveNewItem(int menuid, int sectionid, MenuItem mi, int pos) {
         String itemInsert = "INSERT INTO catering.MenuItems (menu_id, section_id, description, recipe_id, position) VALUES (" +
                 menuid +
@@ -91,8 +63,8 @@ public class MenuItem {
                 sectionid +
                 ", " +
                 "'" + PersistenceManager.escapeString(mi.description) + "', " +
-                + mi.itemRecipe.getId() + ", " +
-                + pos + ");";
+                +mi.procedure.getId() + ", " +
+                +pos + ");";
         PersistenceManager.executeUpdate(itemInsert);
 
         mi.id = PersistenceManager.getLastId();
@@ -100,28 +72,26 @@ public class MenuItem {
 
     public static ArrayList<MenuItem> loadItemsFor(int menu_id, int sec_id) {
         ArrayList<MenuItem> result = new ArrayList<>();
-        ArrayList<Integer> recids = new ArrayList<>();
+        ArrayList<Integer> proc_ids = new ArrayList<>();
         String query = "SELECT * FROM MenuItems WHERE menu_id = " + menu_id +
                 " AND " +
                 "section_id = " + sec_id +
                 " ORDER BY position";
-        PersistenceManager.executeQuery(query, new ResultHandler() {
-            @Override
-            public void handle(ResultSet rs) throws SQLException {
-                MenuItem mi = new MenuItem();
-                mi.description = rs.getString("description");
-                result.add(mi);
-                recids.add(rs.getInt("recipe_id"));
-            }
+        PersistenceManager.executeQuery(query, rs -> {
+            MenuItem mi = new MenuItem();
+            mi.description = rs.getString("description");
+            result.add(mi);
+            proc_ids.add(rs.getInt("procedure_id"));
         });
 
-        // carico qui le ricette perché non posso innestare due connessioni al DB
+        // carico qui le procedure perché non posso innestare due connessioni al DB
         for (int i = 0; i < result.size(); i++) {
-            result.get(i).itemRecipe = Recipe.loadRecipeById(recids.get(i));
+            result.get(i).procedure = CookingProcedure.loadById(proc_ids.get(i));
         }
 
         return result;
     }
+
     public static void saveSection(int sec_id, MenuItem mi) {
         String upd = "UPDATE MenuItems SET section_id = " + sec_id +
                 " WHERE id = " + mi.id;
@@ -137,5 +107,31 @@ public class MenuItem {
     public static void removeItem(MenuItem mi) {
         String rem = "DELETE FROM MenuItems WHERE id = " + mi.getId();
         PersistenceManager.executeUpdate(rem);
+    }
+
+    // STATIC METHODS FOR PERSISTENCE
+
+    public int getId() {
+        return id;
+    }
+
+    public String toString() {
+        return description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public CookingProcedure getItemProcedure() {
+        return procedure;
+    }
+
+    public void setItem(CookingProcedure procedure) {
+        this.procedure = procedure;
     }
 }

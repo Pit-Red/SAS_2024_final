@@ -1,86 +1,62 @@
 package catering.businesslogic.procedure;
 
 import catering.persistence.PersistenceManager;
-import catering.persistence.ResultHandler;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
-public class Preparation extends Procedure {
+public class Preparation extends CookingProcedure {
+    private static final Map<Integer, Preparation> allPreparations = new HashMap<>();
 
-    private static Map<Integer, Preparation> all = new HashMap<>();
-    private int id;
-    private String name;
-
-    public Preparation(){
+    public Preparation() {
         super();
     }
 
     public Preparation(String name) {
-        id = 0;
-        this.name = name;
+        super(name, 0);
     }
 
-    public String getName() {
-        return name;
+    public static ArrayList<Preparation> getAllPreparations() {
+        return new ArrayList<>(allPreparations.values());
     }
 
-    public int getId() {
-        return id;
+    // STATIC METHODS FOR PERSISTENCE
+    public static Preparation loadPreparationById(int id) {
+        if (allPreparations.containsKey(id)) return allPreparations.get(id);
+        Preparation prep = new Preparation();
+        String query = "SELECT * FROM Preparations WHERE id = " + id;
+
+        PersistenceManager.executeQuery(query, rs -> {
+            prep.name = rs.getString("name");
+            prep.id = id;
+            allPreparations.put(prep.id, prep);
+        });
+
+        return prep;
+    }
+
+    public static ArrayList<Preparation> loadAllPreparations() {
+        String query = "SELECT * FROM Preparations";
+
+        PersistenceManager.executeQuery(query, rs -> {
+            int id = rs.getInt("id");
+            if (allPreparations.containsKey(id)) {
+                Preparation rec = allPreparations.get(id);
+                rec.name = rs.getString("name");
+            } else {
+                Preparation prep = new Preparation(rs.getString("name"));
+                prep.id = id;
+                allPreparations.put(prep.id, prep);
+            }
+        });
+
+        ArrayList<Preparation> preps = new ArrayList<>(allPreparations.values());
+        preps.sort(Comparator.comparing(Preparation::getName));
+
+        return preps;
     }
 
     public String toString() {
         return name;
-    }
-
-    // STATIC METHODS FOR PERSISTENCE
-
-    public static ArrayList<Preparation> loadAllPreparations(){
-        String query = "SELECT * FROM Preparations";
-
-        PersistenceManager.executeQuery(query, new ResultHandler() {
-            @Override
-            public void handle(ResultSet rs) throws SQLException {
-                int id = rs.getInt("id");
-                if (all.containsKey(id)) {
-                    Preparation rec = all.get(id);
-                    rec.name = rs.getString("name");
-                } else {
-                    Preparation rec = new Preparation(rs.getString("name"));
-                    rec.id = id;
-                    all.put(rec.id, rec);
-                }
-            }
-        });
-
-        ArrayList<Preparation> ret = new ArrayList<Preparation>(all.values());
-        Collections.sort(ret, new Comparator<Preparation>() {
-            @Override
-            public int compare(Preparation o1, Preparation o2) {
-                return (o1.getName().compareTo(o2.getName()));
-            }
-        });
-        return ret;
-    }
-
-    public static ArrayList<Preparation> getAllRecipes() {
-        return new ArrayList<Preparation>(all.values());
-    }
-
-    public static Preparation loadRecipeById(int id) {
-        if (all.containsKey(id)) return all.get(id);
-        Preparation rec = new Preparation();
-        String query = "SELECT * FROM Preparations WHERE id = " + id;
-        PersistenceManager.executeQuery(query, new ResultHandler() {
-            @Override
-            public void handle(ResultSet rs) throws SQLException {
-                rec.name = rs.getString("name");
-                rec.id = id;
-                all.put(rec.id, rec);
-            }
-        });
-        return rec;
     }
 
     @Override

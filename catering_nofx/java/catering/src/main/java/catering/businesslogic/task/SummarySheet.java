@@ -1,23 +1,23 @@
 package catering.businesslogic.task;
 
-import catering.businesslogic.procedure.Procedure;
+import catering.businesslogic.procedure.CookingProcedure;
 
 import java.util.ArrayList;
 
 public class SummarySheet {
-    private final ArrayList<Procedure> listProcedures;
+    private final ArrayList<CookingProcedure> listCookingProcedures;
     private ArrayList<Task> tasks;
 
-    public SummarySheet(ArrayList<Procedure> listProcedures) {
-        this.listProcedures = listProcedures;
+    public SummarySheet(ArrayList<CookingProcedure> listCookingProcedures) {
+        this.listCookingProcedures = listCookingProcedures;
     }
 
-    public void addProcedure(Procedure procedure){
-        this.listProcedures.add(procedure);
+    public void addProcedure(CookingProcedure cookingProcedure){
+        this.listCookingProcedures.add(cookingProcedure);
     }
 
-    public boolean containsProcedure(Procedure procedure){
-        return this.listProcedures.contains(procedure);
+    public boolean containsProcedure(CookingProcedure cookingProcedure){
+        return this.listCookingProcedures.contains(cookingProcedure);
     }
 
 

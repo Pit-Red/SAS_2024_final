@@ -1,9 +1,8 @@
 package catering.businesslogic.task;
-import java.util.Date;
-
+import java.time.Duration;
 
 public class Task {
-    private Date timeToComplete;
+    private Duration timeToComplete;
     private boolean completed;
     private String amount;
     private String doses;

@@ -1,16 +1,16 @@
 package catering.businesslogic.menu;
 
 import catering.businesslogic.CatERing;
-import catering.businesslogic.UseCaseLogicException;
-import catering.businesslogic.procedure.Recipe;
+import catering.businesslogic.errors.UseCaseLogicException;
+import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.user.User;
 
 import java.util.ArrayList;
 
 public class MenuManager {
-    private String[] menuFeatures = {"Richiede cucina", "Richiede cuoco", "Finger food", "Buffet", "Piatti caldi"};
+    private final String[] menuFeatures = {"Richiede cucina", "Richiede cuoco", "Finger food", "Buffet", "Piatti caldi"};
+    private final ArrayList<MenuEventReceiver> eventReceivers;
     private Menu currentMenu;
-    private ArrayList<MenuEventReceiver> eventReceivers;
 
     public MenuManager() {
         eventReceivers = new ArrayList<>();
@@ -46,24 +46,24 @@ public class MenuManager {
         return sec;
     }
 
-    public MenuItem insertItem(Recipe recipe, Section sec, String desc) throws UseCaseLogicException {
+    public MenuItem insertItem(CookingProcedure procedure, Section sec, String desc) throws UseCaseLogicException {
         if (this.currentMenu == null) throw new UseCaseLogicException();
         if (sec != null && this.currentMenu.getSectionPosition(sec) < 0) throw new UseCaseLogicException();
-        MenuItem mi = this.currentMenu.addItem(recipe, sec, desc);
+        MenuItem mi = this.currentMenu.addItem(procedure, sec, desc);
         this.notifyMenuItemAdded(mi);
         return mi;
     }
 
-    public MenuItem insertItem(Recipe recipe, Section sec) throws UseCaseLogicException {
-        return this.insertItem(recipe, sec, recipe.getName());
+    public MenuItem insertItem(CookingProcedure proc, Section sec) throws UseCaseLogicException {
+        return this.insertItem(proc, sec, proc.getName());
     }
 
-    public MenuItem insertItem(Recipe rec) throws UseCaseLogicException {
-        return this.insertItem(rec, null, rec.getName());
+    public MenuItem insertItem(CookingProcedure proc) throws UseCaseLogicException {
+        return this.insertItem(proc, null, proc.getName());
     }
 
-    public MenuItem insertItem(Recipe rec, String desc) throws UseCaseLogicException {
-        return this.insertItem(rec, null, desc);
+    public MenuItem insertItem(CookingProcedure proc, String desc) throws UseCaseLogicException {
+        return this.insertItem(proc, null, desc);
     }
 
     public void setAdditionalFeatures(String[] features, boolean[] values) throws UseCaseLogicException {
@@ -173,7 +173,7 @@ public class MenuManager {
 
         // l'item deve appartenere al menu, o in una sezione o come voce libera
         Section oldsec = currentMenu.getSectionForItem(mi);
-        if (oldsec == null && currentMenu.getFreeItemPosition(mi) < 0) throw  new UseCaseLogicException();
+        if (oldsec == null && currentMenu.getFreeItemPosition(mi) < 0) throw new UseCaseLogicException();
 
         // spostamento non necessario
         if (sec == oldsec) return;
@@ -187,14 +187,15 @@ public class MenuManager {
 
     public void editMenuItemDescription(MenuItem mi, String desc) throws UseCaseLogicException {
         if (currentMenu == null) throw new UseCaseLogicException();
-        if (currentMenu.getSectionForItem(mi) == null && currentMenu.getFreeItemPosition(mi) < 0) throw new UseCaseLogicException();
+        if (currentMenu.getSectionForItem(mi) == null && currentMenu.getFreeItemPosition(mi) < 0)
+            throw new UseCaseLogicException();
 
         mi.setDescription(desc);
 
         this.notifyItemDescriptionChanged(mi);
     }
 
-    public void deleteItem(MenuItem mi) throws  UseCaseLogicException {
+    public void deleteItem(MenuItem mi) throws UseCaseLogicException {
         if (currentMenu == null) throw new UseCaseLogicException();
         Section sec = null;
         try {
@@ -216,7 +217,7 @@ public class MenuManager {
 
     private void notifyItemDescriptionChanged(MenuItem mi) {
         for (MenuEventReceiver er : this.eventReceivers) {
-            er.updateItemDescriptionChanged(this.currentMenu,mi);
+            er.updateItemDescriptionChanged(this.currentMenu, mi);
         }
     }
 
@@ -298,12 +299,12 @@ public class MenuManager {
         }
     }
 
-    public void setCurrentMenu(Menu m) {
-        this.currentMenu = m;
-    }
-
     public Menu getCurrentMenu() {
         return this.currentMenu;
+    }
+
+    public void setCurrentMenu(Menu m) {
+        this.currentMenu = m;
     }
 
     public ArrayList<Menu> getAllMenus() {

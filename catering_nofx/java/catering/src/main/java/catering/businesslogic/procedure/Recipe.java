@@ -7,26 +7,60 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Recipe extends Procedure {
-    private static Map<Integer, Recipe> all = new HashMap<>();
-    private int id;
-    private String name;
+public class Recipe extends CookingProcedure {
+    private static final Map<Integer, Recipe> allRecipes = new HashMap<>();
 
-    private Recipe() {
+    // todo aggiungere al database la lista di preparazioni per ciascuna ricetta
+    private final ArrayList<Preparation> preparations = new ArrayList<>();
+
+    public Recipe() {
         super();
     }
 
     public Recipe(String name) {
-        id = 0;
-        this.name = name;
+        super(name, 0);
     }
 
-    public String getName() {
-        return name;
+    public static ArrayList<Recipe> getAllRecipes() {
+        return new ArrayList<>(allRecipes.values());
     }
 
-    public int getId() {
-        return id;
+    // STATIC METHODS FOR PERSISTENCE
+    public static Recipe loadRecipeById(int id) {
+        if (allRecipes.containsKey(id)) return allRecipes.get(id);
+        Recipe rec = new Recipe();
+        String query = "SELECT * FROM Recipes WHERE id = " + id;
+        PersistenceManager.executeQuery(query, rs -> {
+            rec.name = rs.getString("name");
+            rec.id = id;
+            allRecipes.put(rec.id, rec);
+        });
+        return rec;
+    }
+
+    public static ArrayList<Recipe> loadAllRecipes() {
+        String query = "SELECT * FROM Recipes";
+
+        PersistenceManager.executeQuery(query, rs -> {
+            int id = rs.getInt("id");
+            if (allRecipes.containsKey(id)) {
+                Recipe rec = allRecipes.get(id);
+
+                rec.name = rs.getString("name");
+            } else {
+                Recipe rec = new Recipe(rs.getString("name"));
+                rec.id = id;
+                allRecipes.put(rec.id, rec);
+            }
+        });
+
+        ArrayList<Recipe> ret = new ArrayList<>(allRecipes.values());
+        ret.sort(Comparator.comparing(Recipe::getName));
+        return ret;
+    }
+
+    public ArrayList<Preparation> getPreparations() {
+        return preparations;
     }
 
     public String toString() {
@@ -37,56 +71,4 @@ public class Recipe extends Procedure {
     public boolean equals(Object obj) {
         return obj instanceof Recipe && ((Recipe) obj).getId() == this.id;
     }
-
-    // STATIC METHODS FOR PERSISTENCE
-
-    public static ArrayList<Recipe> loadAllRecipes() {
-        String query = "SELECT * FROM Recipes";
-
-        PersistenceManager.executeQuery(query, new ResultHandler() {
-            @Override
-            public void handle(ResultSet rs) throws SQLException {
-                int id = rs.getInt("id");
-                if (all.containsKey(id)) {
-                    Recipe rec = all.get(id);
-
-                    rec.name = rs.getString("name");
-                } else {
-                    Recipe rec = new Recipe(rs.getString("name"));
-                    rec.id = id;
-                    all.put(rec.id, rec);
-                }
-            }
-        });
-
-        ArrayList<Recipe> ret = new ArrayList<Recipe>(all.values());
-        Collections.sort(ret, new Comparator<Recipe>() {
-            @Override
-            public int compare(Recipe o1, Recipe o2) {
-                return (o1.getName().compareTo(o2.getName()));
-            }
-        });
-        return ret;
-    }
-
-    public static ArrayList<Recipe> getAllRecipes() {
-        return new ArrayList<Recipe>(all.values());
-    }
-
-    public static Recipe loadRecipeById(int id) {
-        if (all.containsKey(id)) return all.get(id);
-        Recipe rec = new Recipe();
-        String query = "SELECT * FROM Recipes WHERE id = " + id;
-        PersistenceManager.executeQuery(query, new ResultHandler() {
-            @Override
-            public void handle(ResultSet rs) throws SQLException {
-                    rec.name = rs.getString("name");
-                    rec.id = id;
-                    all.put(rec.id, rec);
-            }
-        });
-        return rec;
-    }
-
-
 }
