@@ -432,7 +432,7 @@ public class Menu {
                 updatedList.add(mi);
             } else {
                 prev.setDescription(mi.getDescription());
-                prev.setItem(mi.getItemRecipe());
+                prev.setItemRecipe(mi.getItemRecipe());
                 updatedList.add(prev);
             }
         }

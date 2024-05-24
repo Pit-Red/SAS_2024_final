@@ -131,7 +131,7 @@ public class MenuItem {
         return recipe;
     }
 
-    public void setItem(Recipe recipe) {
+    public void setItemRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
 }
