@@ -372,8 +372,8 @@ public class Menu {
         return sec;
     }
 
-    public MenuItem addItem(CookingProcedure procedure, Section sec, String desc) {
-        MenuItem mi = new MenuItem(procedure, desc);
+    public MenuItem addItem(Recipe recipe, Section sec, String desc) {
+        MenuItem mi = new MenuItem(recipe, desc);
         if (sec != null) {
             sec.addItem(mi);
         } else {

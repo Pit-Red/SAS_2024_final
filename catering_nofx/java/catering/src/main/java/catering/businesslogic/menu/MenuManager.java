@@ -3,6 +3,7 @@ package catering.businesslogic.menu;
 import catering.businesslogic.CatERing;
 import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.procedure.CookingProcedure;
+import catering.businesslogic.procedure.Recipe;
 import catering.businesslogic.user.User;
 
 import java.util.ArrayList;
@@ -46,24 +47,24 @@ public class MenuManager {
         return sec;
     }
 
-    public MenuItem insertItem(CookingProcedure procedure, Section sec, String desc) throws UseCaseLogicException {
+    public MenuItem insertItem(Recipe recipe, Section sec, String desc) throws UseCaseLogicException {
         if (this.currentMenu == null) throw new UseCaseLogicException();
         if (sec != null && this.currentMenu.getSectionPosition(sec) < 0) throw new UseCaseLogicException();
-        MenuItem mi = this.currentMenu.addItem(procedure, sec, desc);
+        MenuItem mi = this.currentMenu.addItem(recipe, sec, desc);
         this.notifyMenuItemAdded(mi);
         return mi;
     }
 
-    public MenuItem insertItem(CookingProcedure proc, Section sec) throws UseCaseLogicException {
-        return this.insertItem(proc, sec, proc.getName());
+    public MenuItem insertItem(Recipe recipe, Section sec) throws UseCaseLogicException {
+        return this.insertItem(recipe, sec, recipe.getName());
     }
 
-    public MenuItem insertItem(CookingProcedure proc) throws UseCaseLogicException {
-        return this.insertItem(proc, null, proc.getName());
+    public MenuItem insertItem(Recipe recipe) throws UseCaseLogicException {
+        return this.insertItem(recipe, null, recipe.getName());
     }
 
-    public MenuItem insertItem(CookingProcedure proc, String desc) throws UseCaseLogicException {
-        return this.insertItem(proc, null, desc);
+    public MenuItem insertItem(Recipe recipe, String desc) throws UseCaseLogicException {
+        return this.insertItem(recipe, null, desc);
     }
 
     public void setAdditionalFeatures(String[] features, boolean[] values) throws UseCaseLogicException {
