@@ -2,10 +2,10 @@ package catering.businesslogic.task;
 
 import catering.businesslogic.procedure.CookingProcedure;
 
-public interface ShiftBoardEventReceiver {
-    void addReceiver(ShiftBoardEventReceiver er);
+public interface TaskEventReceiver {
+    void addReceiver(TaskEventReceiver er);
 
-    void removeReceiver(ShiftBoardEventReceiver er);
+    void removeReceiver(TaskEventReceiver er);
 
     void notifySummarySheetCreated();
 
