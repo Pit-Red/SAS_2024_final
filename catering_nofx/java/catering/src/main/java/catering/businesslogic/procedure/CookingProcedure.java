@@ -20,16 +20,6 @@ public abstract class CookingProcedure {
         this.id = id;
     }
 
-    protected static <T extends CookingProcedure> T loadById(int id, String query, Map<Integer, T> all, T instance) {
-        if (all.containsKey(id)) return all.get(id);
-        PersistenceManager.executeQuery(query, (rs) -> {
-            instance.name = rs.getString("name");
-            instance.id = id;
-            all.put(instance.id, instance);
-        });
-        return instance;
-    }
-
     public static void loadAllProcedures() {
         cookingProcedures.addAll(Recipe.loadAllRecipes());
         cookingProcedures.addAll(Preparation.loadAllPreparations());
