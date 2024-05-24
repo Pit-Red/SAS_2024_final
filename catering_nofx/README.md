@@ -44,4 +44,4 @@ Fate attenzione alla porta, host, nome utente e password che dovete poi inserire
 ## Creazione database e tabelle iniziale
 
 L'istanza MySQL all'inizio è vuota. Creare un database di nome `catering` collegandosi con browser a `http://localhost:8080`.
-Le tabelle iniziali possono essere create eseguendo dall'interfaccia web la query salvata in `catering_init_03.sql`. 
+Le tabelle iniziali possono essere create eseguendo dall'interfaccia web la query salvata in `catering_db_init.sql`. 
