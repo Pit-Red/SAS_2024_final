@@ -313,6 +313,6 @@ r1=eventReceivers
 m1=0..n
 </panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1600</x><y>600</y><w>336</w><h>392</h></coordinates><panel_attributes>lt=-&gt;
 r2=currentService
-m2=0..1</panel_attributes><additional_attributes>10;470;150;470;150;370;350;370;350;20;400;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1968</x><y>1440</y><w>120</w><h>88</h></coordinates><panel_attributes>lt=&lt;-
-r1=continuesTask
-m1=0..1</panel_attributes><additional_attributes>10;80;130;80;130;10;10;10</additional_attributes></element></diagram>
+m2=0..1</panel_attributes><additional_attributes>10;470;150;470;150;370;350;370;350;20;400;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1968</x><y>1440</y><w>112</w><h>88</h></coordinates><panel_attributes>lt=&lt;-
+r1=initialTask
+m1=0..1</panel_attributes><additional_attributes>10;80;120;80;120;10;10;10</additional_attributes></element></diagram>
