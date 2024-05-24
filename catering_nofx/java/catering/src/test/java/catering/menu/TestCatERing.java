@@ -1,12 +1,12 @@
-package catering;
+package catering.menu;
 
 import catering.businesslogic.CatERing;
-import catering.businesslogic.UseCaseLogicException;
+import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.event.EventInfo;
 import catering.businesslogic.event.ServiceInfo;
 import catering.businesslogic.menu.Menu;
 import catering.businesslogic.menu.Section;
-import catering.businesslogic.procedure.Procedure;
+import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.Recipe;
 
 import java.util.ArrayList;
@@ -33,16 +33,16 @@ public class TestCatERing {
 
             System.out.println("\nTEST GET EVENT INFO");
             ArrayList<EventInfo> events = CatERing.getInstance().getEventManager().getEventInfo();
-            for (EventInfo e: events) {
+            for (EventInfo e : events) {
                 System.out.println(e);
-                for (ServiceInfo s: e.getServices()) {
+                for (ServiceInfo s : e.getServices()) {
                     System.out.println("\t" + s);
                 }
             }
-            System.out.println("");
+            System.out.println();
 
             System.out.println("\nTEST GET RECIPES AND INSERT ITEM IN SECTION");
-            ArrayList<Procedure> recipes = CatERing.getInstance().getProcedureManager().getProcedures();
+            ArrayList<CookingProcedure> recipes = CatERing.getInstance().getProcedureManager().getCookingProcedures();
             CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(0), antipasti);
             CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(1), antipasti);
             CatERing.getInstance().getMenuManager().insertItem((Recipe) recipes.get(2), antipasti);

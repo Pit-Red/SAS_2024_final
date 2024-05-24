@@ -1,6 +1,6 @@
-package catering;
+package catering.menu;
 import catering.businesslogic.CatERing;
-import catering.businesslogic.UseCaseLogicException;
+import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.menu.Menu;
 import catering.businesslogic.menu.Section;
 import catering.businesslogic.recipe.Recipe;
