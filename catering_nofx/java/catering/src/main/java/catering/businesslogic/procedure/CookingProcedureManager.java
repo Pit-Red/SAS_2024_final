@@ -9,6 +9,7 @@ public class CookingProcedureManager {
         CookingProcedure.loadAllProcedures();
     }
 
+    // TODO da fixare la gestione della persistenza delle procedure col nuovo db
     public ArrayList<CookingProcedure> getCookingProcedures() {
         return CookingProcedure.getAllProcedures();
     }
