@@ -1,12 +1,23 @@
 package catering.businesslogic.task;
 
 import catering.businesslogic.procedure.CookingProcedure;
+import catering.businesslogic.procedure.Preparation;
+import catering.businesslogic.procedure.Recipe;
 import catering.businesslogic.shifts.KitchenShift;
 import catering.businesslogic.user.User;
+import catering.persistence.PersistenceManager;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Task {
+
+    private static Map<Integer, Task> allTasks = new HashMap<>();
     private Duration timeToComplete;
     private boolean completed;
     private Boolean toPrepare;
@@ -100,5 +111,52 @@ public class Task {
 
     public void setInitialTask(Task initialTask) {
         this.initialTask = initialTask;
+    }
+
+    // PERSISTENCE PART
+
+    public static ArrayList<Task> loadAllTasks(){
+        String query = "SELECT * FROM Tasks";
+
+        PersistenceManager.executeQuery(query, rs -> {
+            int id = rs.getInt("id");
+            if (!allTasks.containsKey(id)){
+                taskSetUp(id, rs);
+            }
+        });
+
+        ArrayList<Task> proc = new ArrayList<>(allTasks.values());
+        proc.sort(Comparator.comparing(Task::getTimeToComplete));
+
+        return proc;
+    }
+
+    public static Task loadTastById(int id){
+        if (!allTasks.containsKey(id)) {
+            String query = "SELECT * FROM Tasks WHERE id = " + id;
+            PersistenceManager.executeQuery(query, rs -> {
+                taskSetUp(id, rs);
+            });
+        }
+        return allTasks.get(id);
+    }
+
+    private static void taskSetUp(int id, ResultSet rs) throws SQLException {
+        CookingProcedure proc = CookingProcedure.loadCookingProcedureById(rs.getInt("cooking_procedure_id"));
+        User user = User.loadUserById(rs.getInt("cooker_id"));
+        Task task = new Task(proc, null, user);
+        task.setCompleted(rs.getBoolean("completed"));
+
+        String time = rs.getString("time_to_complete");
+        if (time != null)
+            task.setTimeToComplete(Duration.parse(time));
+        String amount = rs.getString("amount");
+        if (time != null)
+            task.setAmount(amount);
+        String doses = rs.getString("doses");
+        if (time != null)
+            task.setDoses(doses);
+
+        allTasks.put(id, task);
     }
 }

@@ -10,11 +10,12 @@ public class KitchenTaskManager {
     private SummarySheet currentSummarySheet;
 
     public KitchenTaskManager() {
+        SummarySheet.loadAllSummarySheet();
         eventReceivers = new ArrayList<>();
     }
 
     public SummarySheet generateSummarySheet(ArrayList<CookingProcedure> procedures) {
-        return new SummarySheet(procedures);
+        return new SummarySheet(0, procedures);
     }
 
     public void addEventReceiver(TaskEventReceiver receiver) {
@@ -23,4 +24,9 @@ public class KitchenTaskManager {
     public void removeEventReceiver(TaskEventReceiver receiver) {
         eventReceivers.remove(receiver);
     }
+
+    public ArrayList<SummarySheet> getAllSummarySheets(){
+        return SummarySheet.getAllSummarySheets();
+    }
+
 }
