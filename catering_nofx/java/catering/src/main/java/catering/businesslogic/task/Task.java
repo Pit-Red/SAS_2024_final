@@ -16,6 +16,8 @@ public class Task {
     private User cook;
     private KitchenShift shift;
 
+    private Task initialTask;
+
     public Task(CookingProcedure procedure, KitchenShift shift, User cook) {
         this.procedure = procedure;
         this.shift = shift;
@@ -90,5 +92,13 @@ public class Task {
 
     public void setShift(KitchenShift shift) {
         this.shift = shift;
+    }
+
+    public Task getInitialTask() {
+        return initialTask;
+    }
+
+    public void setInitialTask(Task initialTask) {
+        this.initialTask = initialTask;
     }
 }
