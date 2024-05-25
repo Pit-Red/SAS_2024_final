@@ -52,6 +52,21 @@ public abstract class CookingProcedure {
         return proc;
     }
 
+    public static CookingProcedure loadCookingProcedureById(int id) {
+        if (allCookingProcedures.containsKey(id)) return (CookingProcedure) allCookingProcedures.get(id);
+        String query = "SELECT * FROM CookingProcedures WHERE id = " + id;
+        PersistenceManager.executeQuery(query, rs -> {
+            CookingProcedure proc;
+            String name = rs.getString("name");
+            if (rs.getString("type").equals("preparation"))
+                proc = new Preparation(name, id, rs.getInt("fk_referenced_preparation"));
+            else
+                proc = new Recipe(name, id, rs.getInt("fk_referenced_preparation"));
+            allCookingProcedures.put(proc.getId(), proc);
+        });
+        return allCookingProcedures.get(id);
+    }
+
     public static Recipe loadRecipeById(int id) {
         if (allRecipes.containsKey(id)) return (Recipe) allRecipes.get(id);
         Recipe rec = new Recipe();
@@ -65,13 +80,13 @@ public abstract class CookingProcedure {
     }
 
     public static Preparation loadPreparationById(int id) {
-        if (allRecipes.containsKey(id)) return (Preparation) allRecipes.get(id);
+        if (allPreparations.containsKey(id)) return (Preparation) allPreparations.get(id);
         Preparation prep = new Preparation();
-        String query = "SELECT * FROM Recipes WHERE id = " + id;
+        String query = "SELECT * FROM Preparation WHERE id = " + id;
         PersistenceManager.executeQuery(query, rs -> {
             prep.setName(rs.getString("name"));
             prep.setForeignKeyId(id);
-            allRecipes.put(prep.getForeignKeyId(), prep);
+            allPreparations.put(prep.getForeignKeyId(), prep);
         });
         return prep;
     }
