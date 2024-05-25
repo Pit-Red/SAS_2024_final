@@ -9,22 +9,15 @@ public class CookingProcedureManager {
         CookingProcedure.loadAllProcedures();
     }
 
-    // TODO da fixare la gestione della persistenza delle procedure col nuovo db
     public ArrayList<CookingProcedure> getCookingProcedures() {
         return CookingProcedure.getAllProcedures();
     }
 
     public ArrayList<CookingProcedure> getRecipes() {
-        return CookingProcedure.getAllProcedures()
-                .stream()
-                .filter(procedure -> procedure instanceof Recipe)
-                .collect(Collectors.toCollection(ArrayList::new));
+        return CookingProcedure.getAllRecipes();
     }
 
     public ArrayList<CookingProcedure> getPreparations() {
-        return CookingProcedure.getAllProcedures()
-                .stream()
-                .filter(procedure -> procedure instanceof Preparation)
-                .collect(Collectors.toCollection(ArrayList::new));
+        return CookingProcedure.getAllPreparations();
     }
 }

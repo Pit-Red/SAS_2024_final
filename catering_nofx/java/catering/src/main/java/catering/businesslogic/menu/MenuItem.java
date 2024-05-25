@@ -81,12 +81,12 @@ public class MenuItem {
             MenuItem mi = new MenuItem();
             mi.description = rs.getString("description");
             result.add(mi);
-            proc_ids.add(rs.getInt("procedure_id"));
+            proc_ids.add(rs.getInt("recipe_id"));
         });
 
         // carico qui le procedure perché non posso innestare due connessioni al DB
         for (int i = 0; i < result.size(); i++) {
-            result.get(i).recipe = Recipe.loadRecipeById(proc_ids.get(i));
+            result.get(i).recipe = CookingProcedure.loadRecipeById(proc_ids.get(i));
         }
 
         return result;
