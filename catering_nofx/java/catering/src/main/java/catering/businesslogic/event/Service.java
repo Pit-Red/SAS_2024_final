@@ -1,6 +1,7 @@
 package catering.businesslogic.event;
 
 import catering.businesslogic.menu.Menu;
+import catering.businesslogic.user.User;
 import catering.persistence.PersistenceManager;
 import catering.persistence.ResultHandler;
 
@@ -11,13 +12,14 @@ import java.sql.SQLException;
 import java.sql.Time;
 
 public class Service {
-    private int id;
     private final String name;
+    private int id;
     private Date date;
     private Time timeStart;
     private Time timeEnd;
     private int participants;
-    private Menu usedMenu;
+    private Menu usedMenu; // @todo aggiungere nel database
+    private User chef; // @todo aggiungere nel database
 
     public Service(String name) {
         this.name = name;
@@ -42,6 +44,18 @@ public class Service {
         });
 
         return result;
+    }
+
+    public boolean isChefAssigned(User chef) {
+        return this.chef.equals(chef);
+    }
+
+    public User getChef() {
+        return chef;
+    }
+
+    public void setChef(User chef) {
+        this.chef = chef;
     }
 
     public Menu getUsedMenu() {
