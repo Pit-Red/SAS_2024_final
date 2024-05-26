@@ -1,5 +1,6 @@
 package catering.businesslogic.event;
 
+import catering.businesslogic.menu.Menu;
 import catering.persistence.PersistenceManager;
 import catering.persistence.ResultHandler;
 
@@ -9,38 +10,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 
-public class ServiceInfo implements EventItemInfo {
+public class Service {
     private int id;
-    private String name;
+    private final String name;
     private Date date;
     private Time timeStart;
     private Time timeEnd;
     private int participants;
+    private Menu usedMenu;
 
-    public ServiceInfo(String name) {
+    public Service(String name) {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-
-    public String toString() {
-        return name + ": " + date + " (" + timeStart + "-" + timeEnd + "), " + participants + " pp.";
-    }
-
-    // STATIC METHODS FOR PERSISTENCE
-
-    public static ArrayList<ServiceInfo> loadServiceInfoForEvent(int event_id) {
-        ArrayList<ServiceInfo> result = new ArrayList<>();
+    public static ArrayList<Service> loadServiceInfoForEvent(int event_id) {
+        ArrayList<Service> result = new ArrayList<>();
         String query = "SELECT id, name, service_date, time_start, time_end, expected_participants " +
                 "FROM Services WHERE event_id = " + event_id;
         PersistenceManager.executeQuery(query, new ResultHandler() {
             @Override
             public void handle(ResultSet rs) throws SQLException {
                 String s = rs.getString("name");
-                ServiceInfo serv = new ServiceInfo(s);
+                Service serv = new Service(s);
                 serv.id = rs.getInt("id");
                 serv.date = rs.getDate("service_date");
                 serv.timeStart = rs.getTime("time_start");
@@ -51,5 +42,21 @@ public class ServiceInfo implements EventItemInfo {
         });
 
         return result;
+    }
+
+    public Menu getUsedMenu() {
+        return usedMenu;
+    }
+
+    public void setUsedMenu(Menu usedMenu) {
+        this.usedMenu = usedMenu;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String toString() {
+        return name + ": " + date + " (" + timeStart + "-" + timeEnd + "), " + participants + " pp.";
     }
 }
