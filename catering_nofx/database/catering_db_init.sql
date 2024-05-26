@@ -185,7 +185,7 @@ CREATE TABLE `Tasks`
 (
     `id`                    int(11)         NOT NULL AUTO_INCREMENT,
     `cooking_procedure_id`  int(11)         NOT NULL,
-    `cooker_id`             int(11)         NOT NULL,
+    `cook_id`             int(11)         NULL,
     `initial_task`          int(11)         DEFAULT NULL,
     `time_to_complete`      varchar(20)     DEFAULT NULL,
     `completed`             boolean         DEFAULT false,
@@ -193,7 +193,7 @@ CREATE TABLE `Tasks`
     `doses`                 varchar(100)    DEFAULT NULL,
     `to_prepare`            boolean         DEFAULT true,
     FOREIGN KEY (`cooking_procedure_id`) references CookingProcedures(`id`),
-    FOREIGN KEY (`cooker_id`) references Users(`id`),
+    FOREIGN KEY (`cook_id`) references Users(`id`),
     FOREIGN KEY (`initial_task`) references Tasks(`id`),
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
