@@ -208,7 +208,7 @@ CREATE TABLE `SummarySheets`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
--- Table structure for SummarySheets
+-- Table structure for ListedTasks (in SummarySheet)
 DROP TABLE IF EXISTS `ListedTasks`;
 CREATE TABLE `ListedTasks`
 (
@@ -217,5 +217,17 @@ CREATE TABLE `ListedTasks`
     FOREIGN KEY (`summary_sheet_id`) REFERENCES SummarySheets(`id`),
     FOREIGN KEY (`task_id`) REFERENCES Tasks(`id`),
     PRIMARY KEY (`summary_sheet_id`, `task_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+-- Table structure for ListedProcedures (in SummarySheet)
+DROP TABLE IF EXISTS `ListedProcedures`;
+CREATE TABLE `ListedProcedures`
+(
+    `summary_sheet_id`      int(11)         NOT NULL,
+    `procedure_id`               int(11)         NOT NULL,
+    FOREIGN KEY (`summary_sheet_id`) REFERENCES SummarySheets(`id`),
+    FOREIGN KEY (`procedure_id`) REFERENCES CookingProcedures(`id`),
+    PRIMARY KEY (`summary_sheet_id`, `procedure_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
