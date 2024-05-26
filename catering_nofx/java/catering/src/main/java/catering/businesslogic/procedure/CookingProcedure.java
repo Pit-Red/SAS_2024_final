@@ -8,21 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CookingProcedure {
-    private static final Map<Integer,CookingProcedure> allCookingProcedures = new HashMap<>();
-    private static final Map<Integer,CookingProcedure> allPreparations = new HashMap<>();
-    private static final Map<Integer,CookingProcedure> allRecipes = new HashMap<>();
-
-    public abstract String getName();
-    public abstract void setName(String name);
-    public abstract int getId();
-    public abstract void setId(int id);
-    public abstract int getForeignKeyId();
-    public abstract void setForeignKeyId(int id);
-    @Override
-    public abstract boolean equals(Object obj);
+    private static final Map<Integer, CookingProcedure> allCookingProcedures = new HashMap<>();
+    private static final Map<Integer, CookingProcedure> allPreparations = new HashMap<>();
+    private static final Map<Integer, CookingProcedure> allRecipes = new HashMap<>();
 
     // STATIC FOR PERSISTENCE
-    public static ArrayList<CookingProcedure> loadAllProcedures(){
+    public static ArrayList<CookingProcedure> loadAllProcedures() {
         String query = "SELECT * FROM CookingProcedures";
 
         PersistenceManager.executeQuery(query, rs -> {
@@ -33,11 +24,10 @@ public abstract class CookingProcedure {
                 procedure.setName(rs.getString("name"));
             } else {
                 CookingProcedure procedure;
-                if (rs.getString("type").equals("preparation")){
+                if (rs.getString("type").equals("preparation")) {
                     procedure = new Preparation(name, id, rs.getInt("fk_referenced_preparation"));
                     allPreparations.put(procedure.getForeignKeyId(), procedure);
-                }
-                else {
+                } else {
                     procedure = new Recipe(name, id, rs.getInt("fk_referenced_recipe"));
                     allRecipes.put(procedure.getForeignKeyId(), procedure);
                 }
@@ -53,7 +43,7 @@ public abstract class CookingProcedure {
     }
 
     public static CookingProcedure loadCookingProcedureById(int id) {
-        if (allCookingProcedures.containsKey(id)) return (CookingProcedure) allCookingProcedures.get(id);
+        if (allCookingProcedures.containsKey(id)) return allCookingProcedures.get(id);
         String query = "SELECT * FROM CookingProcedures WHERE id = " + id;
         PersistenceManager.executeQuery(query, rs -> {
             CookingProcedure proc;
@@ -103,6 +93,18 @@ public abstract class CookingProcedure {
         return new ArrayList<>(allRecipes.values());
     }
 
+    public abstract String getName();
 
+    public abstract void setName(String name);
 
+    public abstract int getId();
+
+    public abstract void setId(int id);
+
+    public abstract int getForeignKeyId();
+
+    public abstract void setForeignKeyId(int id);
+
+    @Override
+    public abstract boolean equals(Object obj);
 }

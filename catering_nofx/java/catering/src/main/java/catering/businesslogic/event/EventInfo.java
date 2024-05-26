@@ -10,7 +10,7 @@ import catering.businesslogic.user.User;
 import catering.persistence.PersistenceManager;
 import catering.persistence.ResultHandler;
 
-public class EventInfo implements EventItemInfo {
+public class EventInfo {
     private int id;
     private String name;
     private Date dateStart;
@@ -18,14 +18,14 @@ public class EventInfo implements EventItemInfo {
     private int participants;
     private User organizer;
 
-    private ArrayList<ServiceInfo> services;
+    private ArrayList<Service> services;
 
     public EventInfo(String name) {
         this.name = name;
         id = 0;
     }
 
-    public ArrayList<ServiceInfo> getServices() {
+    public ArrayList<Service> getServices() {
         return this.services;
     }
 
@@ -54,7 +54,7 @@ public class EventInfo implements EventItemInfo {
         });
 
         for (EventInfo e : all) {
-            e.services = ServiceInfo.loadServiceInfoForEvent(e.id);
+            e.services = Service.loadServiceInfoForEvent(e.id);
         }
         return all;
     }
