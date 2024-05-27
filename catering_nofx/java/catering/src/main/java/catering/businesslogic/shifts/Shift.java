@@ -5,6 +5,7 @@ import java.util.Date;
 import java.time.Duration;
 
 public abstract class Shift {
+    protected int id;
     protected Date startDateTime;
     protected Date endDateTime;
     protected Duration duration;
@@ -14,6 +15,10 @@ public abstract class Shift {
 
     public Shift() {
         this.recurrentShifts = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Date getStartDateTime() {

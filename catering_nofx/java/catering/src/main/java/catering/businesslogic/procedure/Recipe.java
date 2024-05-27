@@ -64,5 +64,4 @@ public class Recipe extends CookingProcedure {
                 ((Recipe) obj).getId() == this.cookingProcedureId &&
                 ((Recipe) obj).getForeignKeyId() == this.recipeId;
     }
-
 }

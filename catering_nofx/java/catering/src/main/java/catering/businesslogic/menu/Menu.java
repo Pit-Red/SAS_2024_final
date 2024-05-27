@@ -76,8 +76,22 @@ public class Menu {
 
     }
 
-    public static void savefreeItemDeleted(Menu m, MenuItem mi) {
+    public ArrayList<Recipe> getAllRecipes() {
+        ArrayList<Recipe> recipes = new ArrayList<>();
 
+        // Add recipes from free items
+        for (MenuItem item : this.freeItems) {
+            recipes.add(item.getItemRecipe());
+        }
+
+        // Add recipes from section items
+        for (Section section : this.sections) {
+            for (MenuItem item : section.getItems()) {
+                recipes.add(item.getItemRecipe());
+            }
+        }
+
+        return recipes;
     }
 
     public static void saveNewMenu(Menu m) {
@@ -446,8 +460,6 @@ public class Menu {
         }
         return null;
     }
-
-    // STATIC METHODS FOR PERSISTENCE
 
     private void updateSections(ArrayList<Section> newSections) {
         ArrayList<Section> updatedList = new ArrayList<>();

@@ -1,15 +1,12 @@
 package catering.businesslogic.task;
 
 import catering.businesslogic.procedure.CookingProcedure;
-import catering.businesslogic.procedure.Preparation;
 import catering.businesslogic.procedure.Recipe;
 import catering.persistence.PersistenceManager;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SummarySheet {
 
@@ -26,14 +23,6 @@ public class SummarySheet {
         saveNewSummarySheet();
     }
 
-    // Constructor for creating a new empty SummarySheet
-    public SummarySheet() {
-        this.id = generateNewId();
-        this.listedProcedures = new ArrayList<>();
-        this.tasks = new ArrayList<>();
-        saveNewSummarySheet();
-    }
-
     // Constructor for loading an existing SummarySheet
     private SummarySheet(int id) {
         this.id = id;
@@ -41,7 +30,7 @@ public class SummarySheet {
         this.tasks = new ArrayList<>();
     }
 
-    public static ArrayList<SummarySheet> loadAllSummarySheets() {
+    public static void loadAllSummarySheets() {
         String query = "SELECT * FROM SummarySheets";
         PersistenceManager.executeQuery(query, rs -> {
             int id = rs.getInt("id");
@@ -67,8 +56,6 @@ public class SummarySheet {
                 summarySheet.addProcedure(CookingProcedure.loadCookingProcedureById(rs.getInt("procedure_id")));
             }
         });
-
-        return new ArrayList<>(allSummarySheets.values());
     }
 
     public static ArrayList<SummarySheet> getAllSummarySheets() {

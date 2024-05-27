@@ -185,15 +185,17 @@ CREATE TABLE `Tasks`
 (
     `id`                    int(11)         NOT NULL AUTO_INCREMENT,
     `cooking_procedure_id`  int(11)         NOT NULL,
-    `cook_id`             int(11)         NULL,
+    `cook_id`               int(11)         DEFAULT NULL,
+    `shift_id`              int(11)         NOT NULL,
     `initial_task`          int(11)         DEFAULT NULL,
     `time_to_complete`      varchar(20)     DEFAULT NULL,
     `completed`             boolean         DEFAULT false,
-    `amount`                varchar(100)    DEFAULT NULL,
-    `doses`                 varchar(100)    DEFAULT NULL,
+    `amount`                varchar(255)    DEFAULT NULL,
+    `doses`                 varchar(255)    DEFAULT NULL,
     `to_prepare`            boolean         DEFAULT true,
     FOREIGN KEY (`cooking_procedure_id`) references CookingProcedures(`id`),
     FOREIGN KEY (`cook_id`) references Users(`id`),
+    -- FOREIGN KEY (`shift_id`) references CookingShift(`id`),
     FOREIGN KEY (`initial_task`) references Tasks(`id`),
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
