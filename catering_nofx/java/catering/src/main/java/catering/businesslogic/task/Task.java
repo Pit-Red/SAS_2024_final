@@ -17,7 +17,8 @@ import java.util.Map;
 
 public class Task {
 
-    private static Map<Integer, Task> allTasks = new HashMap<>();
+    private static final Map<Integer, Task> allTasks = new HashMap<>();
+    private final int id;
     private Duration timeToComplete;
     private boolean completed;
     private Boolean toPrepare;
@@ -26,101 +27,40 @@ public class Task {
     private CookingProcedure procedure;
     private User cook;
     private KitchenShift shift;
-
     private Task initialTask;
 
+    // Constructor for creating a new Task
     public Task(CookingProcedure procedure, KitchenShift shift, User cook) {
+        this.id = generateNewId();
         this.procedure = procedure;
         this.shift = shift;
         this.cook = cook;
+        saveNewTask();
     }
 
+    // Constructor for creating a new Task without a cook
     public Task(CookingProcedure procedure, KitchenShift shift) {
+        this.id = generateNewId();
         this.procedure = procedure;
         this.shift = shift;
+        this.cook = null;
+        saveNewTask();
     }
 
-    // Getters and Setters
-    public Duration getTimeToComplete() {
-        return timeToComplete;
+    // Constructor for loading an existing Task
+    private Task(int id) {
+        this.id = id;
     }
 
-    public void setTimeToComplete(Duration timeToComplete) {
-        this.timeToComplete = timeToComplete;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public Boolean getToPrepare() {
-        return toPrepare;
-    }
-
-    public void setToPrepare(Boolean toPrepare) {
-        this.toPrepare = toPrepare;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public String getDoses() {
-        return doses;
-    }
-
-    public void setDoses(String doses) {
-        this.doses = doses;
-    }
-
-    public CookingProcedure getProcedure() {
-        return procedure;
-    }
-
-    public void setProcedure(CookingProcedure procedure) {
-        this.procedure = procedure;
-    }
-
-    public User getCook() {
-        return cook;
-    }
-
-    public void setCook(User cook) {
-        this.cook = cook;
-    }
-
-    public KitchenShift getShift() {
-        return shift;
-    }
-
-    public void setShift(KitchenShift shift) {
-        this.shift = shift;
-    }
-
-    public Task getInitialTask() {
-        return initialTask;
-    }
-
-    public void setInitialTask(Task initialTask) {
-        this.initialTask = initialTask;
-    }
 
     // PERSISTENCE PART
 
-    public static ArrayList<Task> loadAllTasks(){
+    public static ArrayList<Task> loadAllTasks() {
         String query = "SELECT * FROM Tasks";
 
         PersistenceManager.executeQuery(query, rs -> {
             int id = rs.getInt("id");
-            if (!allTasks.containsKey(id)){
+            if (!allTasks.containsKey(id)) {
                 taskSetUp(id, rs);
             }
         });
@@ -131,32 +71,76 @@ public class Task {
         return proc;
     }
 
-    public static Task loadTastById(int id){
+    public static Task loadTaskById(int id) {
         if (!allTasks.containsKey(id)) {
             String query = "SELECT * FROM Tasks WHERE id = " + id;
-            PersistenceManager.executeQuery(query, rs -> {
-                taskSetUp(id, rs);
-            });
+            PersistenceManager.executeQuery(query, rs -> taskSetUp(id, rs));
         }
         return allTasks.get(id);
     }
 
     private static void taskSetUp(int id, ResultSet rs) throws SQLException {
         CookingProcedure proc = CookingProcedure.loadCookingProcedureById(rs.getInt("cooking_procedure_id"));
-        User user = User.loadUserById(rs.getInt("cooker_id"));
-        Task task = new Task(proc, null, user);
-        task.setCompleted(rs.getBoolean("completed"));
+        User user = User.loadUserById(rs.getInt("cook_id"));
+        // KitchenShift shift = KitchenShift.loadKitchenShiftById(rs.getInt("shift_id")); // todo handle shifts
+        Task task = new Task(id);
+        task.procedure = proc;
+        task.cook = user;
+        //task.shift = shift;
+        task.completed = rs.getBoolean("completed");
+        task.toPrepare = rs.getBoolean("to_prepare");
 
         String time = rs.getString("time_to_complete");
         if (time != null)
-            task.setTimeToComplete(Duration.parse(time));
+            task.timeToComplete = Duration.parse(time);
         String amount = rs.getString("amount");
-        if (time != null)
-            task.setAmount(amount);
+        if (amount != null)
+            task.amount = amount;
         String doses = rs.getString("doses");
-        if (time != null)
-            task.setDoses(doses);
+        if (doses != null)
+            task.doses = doses;
+
+        int initial_task_id = rs.getInt("initial_task");
+        Task initial_task;
+        if (initial_task_id != 0) {
+            initial_task = Task.loadTaskById(initial_task_id);
+            task.initialTask = initial_task;
+        }
 
         allTasks.put(id, task);
+    }
+
+    private int generateNewId() {
+        String query = "INSERT INTO Tasks (id) VALUES (DEFAULT)";
+        PersistenceManager.executeUpdate(query);
+        return PersistenceManager.getLastId();
+    }
+
+    private void saveNewTask() { // todo add cooking shift to DB
+        String query = "INSERT INTO Tasks (id, cooking_procedure_id, cook_id, initial_task, shift_id, time_to_complete, completed, to_prepare, amount, doses) VALUES (" +
+                this.id + ", " +
+                this.procedure.getId() + ", " +
+                (this.cook != null ? this.cook.getId() : "NULL") + ", " +
+                (this.initialTask != null ? this.initialTask.getId() : "NULL") + ", " +
+                (this.shift != null ? this.shift.getId() : "NULL") + ", " +
+                (this.timeToComplete != null ? this.timeToComplete : "NULL") + ", " +
+                this.completed + ", " +
+                (this.toPrepare != null ? this.toPrepare : "NULL") + ", " +
+                (this.amount != null ? this.amount : "NULL") + ", " +
+                (this.doses != null ? this.doses : "NULL") + ")";
+        PersistenceManager.executeUpdate(query);
+    }
+
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public Duration getTimeToComplete() {
+        return timeToComplete;
+    }
+
+    public CookingProcedure getProcedure() {
+        return procedure;
     }
 }
