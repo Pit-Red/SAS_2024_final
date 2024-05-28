@@ -124,7 +124,7 @@ VALUES (1, 'o'),
 -- Jack as Head Chef
 
 -- Step 1: Populate Tasks
-INSERT INTO `Tasks` (`cooking_procedure_id`, `cooker_id`, `time_to_complete`, `completed`, `to_prepare`)
+INSERT INTO `Tasks` (`cooking_procedure_id`, `cook_id`, `time_to_complete`, `completed`, `to_prepare`)
 VALUES
     (1, 5, 'PT2H', FALSE, TRUE),
     (2, 4, 'PT1H', FALSE, TRUE),
