@@ -62,6 +62,38 @@ public class SummarySheet {
         return new ArrayList<>(allSummarySheets.values());
     }
 
+    public static SummarySheet loadById(int id) {
+        if (!allSummarySheets.containsKey(id)){
+            String query = "SELECT * FROM SummarySheets WHERE id = " + id;
+            PersistenceManager.executeQuery(query, rs -> {
+                int idSummarySheet = rs.getInt("id");
+                if (!allSummarySheets.containsKey(idSummarySheet)) {
+                    allSummarySheets.put(idSummarySheet, new SummarySheet(idSummarySheet));
+                }
+            });
+
+            String tasksQuery = "SELECT * FROM ListedTasks lt JOIN Tasks t ON lt.task_id = t.id WHERE id = " + id;
+            PersistenceManager.executeQuery(tasksQuery, rs -> {
+                int idSummarySheet = rs.getInt("summary_sheet_id");
+                SummarySheet summarySheet = allSummarySheets.get(idSummarySheet);
+                if (summarySheet != null) {
+                    summarySheet.addTask(Task.loadTaskById(rs.getInt("task_id")));
+                }
+            });
+
+            String proceduresQuery = "SELECT * FROM ListedProcedures lp JOIN CookingProcedures cp ON lp.procedure_id = cp.id WHERE id = " + id;
+            PersistenceManager.executeQuery(proceduresQuery, rs -> {
+                int idSummarySheet = rs.getInt("summary_sheet_id");
+                SummarySheet summarySheet = allSummarySheets.get(idSummarySheet);
+                if (summarySheet != null) {
+                    summarySheet.addProcedure(CookingProcedure.loadCookingProcedureById(rs.getInt("procedure_id")));
+                }
+            });
+        }
+
+        return allSummarySheets.get(id);
+    }
+
     private void saveNewSummarySheet() {
         for (Task task : tasks) {
             String taskQuery = "INSERT INTO ListedTasks (summary_sheet_id, task_id) VALUES (" + this.id + ", " + task.getId() + ")";
@@ -94,6 +126,11 @@ public class SummarySheet {
 
     public ArrayList<CookingProcedure> getListedProcedures() {
         return listedProcedures;
+    }
+
+    public void orderProcedure(CookingProcedure procedure, int position){ //TODO probailmente bisonga aggiundere questa parte nel dsd
+        this.listedProcedures.remove(procedure);
+        this.listedProcedures.add(position, procedure);
     }
 
     @Override

@@ -89,11 +89,6 @@ VALUES ('c', 'cuoco'),
        ('o', 'organizzatore'),
        ('s', 'servizio');
 
--- Inserting data for table `Services`
-INSERT INTO `Services` (`id`, `event_id`, `name`, `used_menu_id`, `service_date`, `time_start`, `time_end`, `expected_participants`, `chef_id`)
-VALUES (1, 1, 'Lunch Service', 1, '2023-07-15', '12:00:00', '15:00:00', 200, 5),
-       (2, 2, 'Dinner Service', 2, '2023-08-01', '18:00:00', '21:00:00', 300, 2),
-       (3, 3, 'Cake and Coffee', 3, '2023-09-20', '17:00:00', '20:00:00', 100, 6);
 
 -- Inserting data for table `Users`
 INSERT INTO `Users` (`id`, `username`)
@@ -137,3 +132,8 @@ VALUES (1, 1),
        (1, 2),
        (1, 3);
 
+-- Inserting data for table `Services`
+INSERT INTO `Services` (`id`, `event_id`, `name`, `used_menu_id`, `service_date`, `time_start`, `time_end`, `expected_participants`, `chef_id`, `summary_sheet_id`)
+VALUES (1, 1, 'Lunch Service', 1, '2023-07-15', '12:00:00', '15:00:00', 200, 5, 1),
+       (2, 2, 'Dinner Service', 2, '2023-08-01', '18:00:00', '21:00:00', 300, 2, 0),
+       (3, 3, 'Cake and Coffee', 3, '2023-09-20', '17:00:00', '20:00:00', 100, 6, 0) ;

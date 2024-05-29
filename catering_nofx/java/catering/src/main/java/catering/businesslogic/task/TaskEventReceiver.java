@@ -7,7 +7,7 @@ public interface TaskEventReceiver {
 
     void removeReceiver(TaskEventReceiver er);
 
-    void notifySummarySheetCreated();
+    void notifySummarySheetCreated(SummarySheet s);
 
     void notifyCookingProcedureAdded(CookingProcedure p);
 

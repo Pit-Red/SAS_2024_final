@@ -170,6 +170,7 @@ CREATE TABLE `Services`
     `name`                  varchar(128) DEFAULT NULL,
     `used_menu_id`          int(11)      DEFAULT NULL,
     `chef_id`               int(11)      DEFAULT NULL,
+    `summary_sheet_id`     int(11)       DEFAULT NULL,
     `service_date`          date         DEFAULT NULL,
     `time_start`            time         DEFAULT NULL,
     `time_end`              time         DEFAULT NULL,
@@ -177,7 +178,8 @@ CREATE TABLE `Services`
     PRIMARY KEY (`id`),
     FOREIGN KEY (`event_id`) REFERENCES `Events` (`id`),
     FOREIGN KEY (`used_menu_id`) REFERENCES `Menus` (`id`),
-    FOREIGN KEY (`chef_id`) REFERENCES `Users` (`id`)
+    FOREIGN KEY (`chef_id`) REFERENCES `Users` (`id`),
+    FOREIGN KEY (`summary_sheet_id`) references SummarySheets(`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -211,9 +213,9 @@ CREATE TABLE `SummarySheets`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+DROP TABLE IF EXISTS `ListedTasks`;
 
 -- Table structure for ListedTasks (in SummarySheet)
-DROP TABLE IF EXISTS `ListedTasks`;
 CREATE TABLE `ListedTasks`
 (
     `summary_sheet_id` int(11) NOT NULL,
@@ -223,9 +225,9 @@ CREATE TABLE `ListedTasks`
     PRIMARY KEY (`summary_sheet_id`, `task_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+DROP TABLE IF EXISTS `ListedProcedures`;
 
 -- Table structure for ListedProcedures (in SummarySheet)
-DROP TABLE IF EXISTS `ListedProcedures`;
 CREATE TABLE `ListedProcedures`
 (
     `summary_sheet_id` int(11) NOT NULL,
@@ -235,3 +237,4 @@ CREATE TABLE `ListedProcedures`
     PRIMARY KEY (`summary_sheet_id`, `procedure_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+

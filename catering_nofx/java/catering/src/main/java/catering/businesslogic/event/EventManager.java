@@ -6,4 +6,6 @@ public class EventManager {
     public ArrayList<EventInfo> getEventInfo() {
         return EventInfo.loadAllEventInfo();
     }
+
+    public Service getServiceById(int id){return Service.loadById(id);}
 }

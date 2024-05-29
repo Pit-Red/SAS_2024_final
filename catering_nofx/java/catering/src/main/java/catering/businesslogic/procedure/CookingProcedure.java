@@ -82,7 +82,7 @@ public abstract class CookingProcedure {
     }
 
     public static ArrayList<CookingProcedure> getAllProcedures() {
-        return (ArrayList<CookingProcedure>) allCookingProcedures.values();
+        return new ArrayList<>(allCookingProcedures.values());
     }
 
     public static ArrayList<Preparation> getAllPreparations() {
