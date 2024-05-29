@@ -167,15 +167,17 @@ CREATE TABLE `Services`
 (
     `id`                    int(11) NOT NULL AUTO_INCREMENT,
     `event_id`              int(11) NOT NULL,
-    `name`                  varchar(128)     DEFAULT NULL,
-    `proposed_menu_id`      int(11) NOT NULL DEFAULT '0',
-    `approved_menu_id`      int(11)          DEFAULT '0',
-    `service_date`          date             DEFAULT NULL,
-    `time_start`            time             DEFAULT NULL,
-    `time_end`              time             DEFAULT NULL,
-    `expected_participants` int(11)          DEFAULT NULL,
+    `name`                  varchar(128) DEFAULT NULL,
+    `used_menu_id`          int(11)      DEFAULT NULL,
+    `chef_id`               int(11)      DEFAULT NULL,
+    `service_date`          date         DEFAULT NULL,
+    `time_start`            time         DEFAULT NULL,
+    `time_end`              time         DEFAULT NULL,
+    `expected_participants` int(11)      DEFAULT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`event_id`) REFERENCES `Events` (`id`)
+    FOREIGN KEY (`event_id`) REFERENCES `Events` (`id`),
+    FOREIGN KEY (`used_menu_id`) REFERENCES `Menus` (`id`),
+    FOREIGN KEY (`chef_id`) REFERENCES `Users` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -183,20 +185,20 @@ CREATE TABLE `Services`
 DROP TABLE IF EXISTS `Tasks`;
 CREATE TABLE `Tasks`
 (
-    `id`                    int(11)         NOT NULL AUTO_INCREMENT,
-    `cooking_procedure_id`  int(11)         NOT NULL,
-    `cook_id`               int(11)         DEFAULT NULL,
-    `shift_id`              int(11)         NOT NULL,
-    `initial_task`          int(11)         DEFAULT NULL,
-    `time_to_complete`      varchar(20)     DEFAULT NULL,
-    `completed`             boolean         DEFAULT false,
-    `amount`                varchar(255)    DEFAULT NULL,
-    `doses`                 varchar(255)    DEFAULT NULL,
-    `to_prepare`            boolean         DEFAULT true,
-    FOREIGN KEY (`cooking_procedure_id`) references CookingProcedures(`id`),
-    FOREIGN KEY (`cook_id`) references Users(`id`),
+    `id`                   int(11) NOT NULL AUTO_INCREMENT,
+    `cooking_procedure_id` int(11) NOT NULL,
+    `cook_id`              int(11)      DEFAULT NULL,
+    `shift_id`             int(11) NOT NULL,
+    `initial_task`         int(11)      DEFAULT NULL,
+    `time_to_complete`     varchar(20)  DEFAULT NULL,
+    `completed`            boolean      DEFAULT false,
+    `amount`               varchar(255) DEFAULT NULL,
+    `doses`                varchar(255) DEFAULT NULL,
+    `to_prepare`           boolean      DEFAULT true,
+    FOREIGN KEY (`cooking_procedure_id`) references CookingProcedures (`id`),
+    FOREIGN KEY (`cook_id`) references Users (`id`),
     -- FOREIGN KEY (`shift_id`) references CookingShift(`id`),
-    FOREIGN KEY (`initial_task`) references Tasks(`id`),
+    FOREIGN KEY (`initial_task`) references Tasks (`id`),
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -205,7 +207,7 @@ CREATE TABLE `Tasks`
 DROP TABLE IF EXISTS `SummarySheets`;
 CREATE TABLE `SummarySheets`
 (
-    `id`                    int(11)         NOT NULL AUTO_INCREMENT,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -214,10 +216,10 @@ CREATE TABLE `SummarySheets`
 DROP TABLE IF EXISTS `ListedTasks`;
 CREATE TABLE `ListedTasks`
 (
-    `summary_sheet_id`      int(11)         NOT NULL,
-    `task_id`               int(11)         NOT NULL,
-    FOREIGN KEY (`summary_sheet_id`) REFERENCES SummarySheets(`id`),
-    FOREIGN KEY (`task_id`) REFERENCES Tasks(`id`),
+    `summary_sheet_id` int(11) NOT NULL,
+    `task_id`          int(11) NOT NULL,
+    FOREIGN KEY (`summary_sheet_id`) REFERENCES SummarySheets (`id`),
+    FOREIGN KEY (`task_id`) REFERENCES Tasks (`id`),
     PRIMARY KEY (`summary_sheet_id`, `task_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -226,10 +228,10 @@ CREATE TABLE `ListedTasks`
 DROP TABLE IF EXISTS `ListedProcedures`;
 CREATE TABLE `ListedProcedures`
 (
-    `summary_sheet_id`      int(11)         NOT NULL,
-    `procedure_id`               int(11)         NOT NULL,
-    FOREIGN KEY (`summary_sheet_id`) REFERENCES SummarySheets(`id`),
-    FOREIGN KEY (`procedure_id`) REFERENCES CookingProcedures(`id`),
+    `summary_sheet_id` int(11) NOT NULL,
+    `procedure_id`     int(11) NOT NULL,
+    FOREIGN KEY (`summary_sheet_id`) REFERENCES SummarySheets (`id`),
+    FOREIGN KEY (`procedure_id`) REFERENCES CookingProcedures (`id`),
     PRIMARY KEY (`summary_sheet_id`, `procedure_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

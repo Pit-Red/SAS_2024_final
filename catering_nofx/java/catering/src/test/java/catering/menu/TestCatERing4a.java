@@ -4,7 +4,7 @@ import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.menu.Menu;
 import catering.businesslogic.menu.MenuItem;
 import catering.businesslogic.menu.Section;
-import catering.businesslogic.recipe.Recipe;
+import catering.businesslogic.procedure.Recipe;
 import java.util.ArrayList;
 
 public class TestCatERing4a {
@@ -19,7 +19,7 @@ public class TestCatERing4a {
             Section primi = CatERing.getInstance().getMenuManager().defineSection("Primi");
             Section secondi = CatERing.getInstance().getMenuManager().defineSection("Secondi");
 
-            ArrayList<Recipe> recipes = CatERing.getInstance().getRecipeManager().getRecipes();
+            ArrayList<Recipe> recipes = CatERing.getInstance().getProcedureManager().getRecipes();
             MenuItem it1 = CatERing.getInstance().getMenuManager().insertItem(recipes.get(0), antipasti);
             CatERing.getInstance().getMenuManager().insertItem(recipes.get(1), antipasti);
             CatERing.getInstance().getMenuManager().insertItem(recipes.get(2), antipasti);

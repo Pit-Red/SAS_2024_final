@@ -92,6 +92,10 @@ public class SummarySheet {
         return this.listedProcedures.contains(cookingProcedure);
     }
 
+    public ArrayList<CookingProcedure> getListedProcedures() {
+        return listedProcedures;
+    }
+
     @Override
     public String toString() {
         return "SummarySheet {id:" + this.id + ", Procedures:" + this.listedProcedures + "}";

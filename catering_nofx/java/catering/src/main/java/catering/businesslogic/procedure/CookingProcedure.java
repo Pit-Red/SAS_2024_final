@@ -9,8 +9,8 @@ import java.util.Map;
 
 public abstract class CookingProcedure {
     private static final Map<Integer, CookingProcedure> allCookingProcedures = new HashMap<>();
-    private static final Map<Integer, CookingProcedure> allPreparations = new HashMap<>();
-    private static final Map<Integer, CookingProcedure> allRecipes = new HashMap<>();
+    private static final Map<Integer, Preparation> allPreparations = new HashMap<>();
+    private static final Map<Integer, Recipe> allRecipes = new HashMap<>();
 
     // STATIC FOR PERSISTENCE
     public static ArrayList<CookingProcedure> loadAllProcedures() {
@@ -26,10 +26,10 @@ public abstract class CookingProcedure {
                 CookingProcedure procedure;
                 if (rs.getString("type").equals("preparation")) {
                     procedure = new Preparation(name, id, rs.getInt("fk_referenced_preparation"));
-                    allPreparations.put(procedure.getForeignKeyId(), procedure);
+                    allPreparations.put(procedure.getForeignKeyId(), (Preparation) procedure);
                 } else {
                     procedure = new Recipe(name, id, rs.getInt("fk_referenced_recipe"));
-                    allRecipes.put(procedure.getForeignKeyId(), procedure);
+                    allRecipes.put(procedure.getForeignKeyId(), (Recipe) procedure);
                 }
 
                 allCookingProcedures.put(procedure.getId(), procedure);
@@ -60,7 +60,7 @@ public abstract class CookingProcedure {
     public static Recipe loadRecipeById(int id) {
         if (allRecipes.containsKey(id)) return (Recipe) allRecipes.get(id);
         Recipe rec = new Recipe();
-        String query = "SELECT * FROM Recipes WHERE id = " + id;
+        String query = "SELECT * FROM CookingProcedures WHERE fk_referenced_recipe = " + id;
         PersistenceManager.executeQuery(query, rs -> {
             rec.setName(rs.getString("name"));
             rec.setForeignKeyId(id);
@@ -85,11 +85,11 @@ public abstract class CookingProcedure {
         return (ArrayList<CookingProcedure>) allCookingProcedures.values();
     }
 
-    public static ArrayList<CookingProcedure> getAllPreparations() {
+    public static ArrayList<Preparation> getAllPreparations() {
         return new ArrayList<>(allPreparations.values());
     }
 
-    public static ArrayList<CookingProcedure> getAllRecipes() {
+    public static ArrayList<Recipe> getAllRecipes() {
         return new ArrayList<>(allRecipes.values());
     }
 

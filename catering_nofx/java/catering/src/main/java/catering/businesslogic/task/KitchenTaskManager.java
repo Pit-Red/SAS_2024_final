@@ -21,7 +21,7 @@ public class KitchenTaskManager {
         // preliminary checks
         User u = CatERing.getInstance().getUserManager().getCurrentUser();
         if (u == null || !u.isChef()) throw new UnauthorizedException("User must be authenticated as Chef");
-        if (service.isChefAssigned(u))
+        if (!service.isChefAssigned(u))
             throw new UnauthorizedException("Chef should be assigned to the service for which the summary sheet shall be created");
         if (service.getUsedMenu() == null) throw new UseCaseLogicException("Specified service must have a menu");
 

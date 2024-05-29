@@ -13,11 +13,15 @@ public class CookingProcedureManager {
         return CookingProcedure.getAllProcedures();
     }
 
-    public ArrayList<CookingProcedure> getRecipes() {
+    public ArrayList<CookingProcedure> getProcedures() {
+        return CookingProcedure.getAllProcedures();
+    }
+
+    public ArrayList<Recipe> getRecipes() {
         return CookingProcedure.getAllRecipes();
     }
 
-    public ArrayList<CookingProcedure> getPreparations() {
+    public ArrayList<Preparation> getPreparations() {
         return CookingProcedure.getAllPreparations();
     }
 }

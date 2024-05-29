@@ -26,6 +26,10 @@ public class Menu {
     private ArrayList<MenuItem> freeItems;
     private ArrayList<Section> sections;
 
+    public User getOwner() {
+        return owner;
+    }
+
     private User owner;
 
     private Menu() {
@@ -318,6 +322,66 @@ public class Menu {
             }
         });
     }
+
+    public static Menu loadById(int id) {
+        if (!loadedMenus.containsKey(id)) {
+            String query = "SELECT * FROM Menus WHERE id = " + id;
+            PersistenceManager.executeQuery(query, rs -> {
+                menuSetUp(id, rs);
+            });
+        }
+
+        return loadedMenus.get(id);
+    }
+
+    public static void menuSetUp(int id, ResultSet rs) throws SQLException {
+        // Extract data from the ResultSet
+        String title = rs.getString("title");
+        int ownerId = rs.getInt("owner_id");
+        boolean published = rs.getBoolean("published");
+
+        // Load the owner User object
+        User owner = User.loadUserById(ownerId);
+
+        // Create a new Menu object and set its properties
+        Menu menu = new Menu();
+        menu.owner = owner;
+        menu.title = title;
+        menu.id = id;
+        menu.published = published;
+
+        // Load features associated with the menu
+        String featuresQuery = "SELECT * FROM MenuFeatures WHERE menu_id = " + id;
+        PersistenceManager.executeQuery(featuresQuery, new ResultHandler() {
+            @Override
+            public void handle(ResultSet featureSet) throws SQLException {
+                while (featureSet.next()) {
+                    String featureName = featureSet.getString("name");
+                    boolean featureValue = featureSet.getBoolean("value");
+                    menu.setFeatureValue(featureName, featureValue);
+                }
+            }
+        });
+
+        // Load sections associated with the menu
+        menu.sections = Section.loadSectionsFor(id);
+
+        // Load free items associated with the menu
+        menu.freeItems = MenuItem.loadItemsFor(id, 0);
+
+        // Check if the menu is currently in use
+        String inUseQuery = "SELECT * FROM Services WHERE used_menu_id = " + id;
+        PersistenceManager.executeQuery(inUseQuery, new ResultHandler() {
+            @Override
+            public void handle(ResultSet rs) throws SQLException {
+                menu.inUse = rs.next();  // If there's at least one result, the menu is in use
+            }
+        });
+
+        // Put the newly created or updated Menu object into the map of loaded menus
+        loadedMenus.put(id, menu);
+    }
+
 
     public boolean getFeatureValue(String feature) {
         return this.featuresMap.get(feature);
