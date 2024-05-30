@@ -20,7 +20,12 @@ public class KitchenTaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateCookingProcedureAdded(SummarySheet sheet, OrderedProcedure p) {
+        String procedureQuery = "INSERT INTO ListedProcedures (summary_sheet_id, procedure_id, position) VALUES ("
+                + sheet.getId() + ", "
+                + p.getId() + ", "
+                + p.getPosition() + ")";
 
+        PersistenceManager.executeUpdate(procedureQuery);
     }
 
     @Override
