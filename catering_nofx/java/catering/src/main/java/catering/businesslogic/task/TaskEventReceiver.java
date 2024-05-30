@@ -1,15 +1,15 @@
 package catering.businesslogic.task;
 
-import catering.businesslogic.procedure.CookingProcedure;
+import catering.businesslogic.procedure.OrderedProcedure;
 
 public interface TaskEventReceiver {
-    void notifySummarySheetCreated(SummarySheet s);
+    void updateSummarySheetCreated(SummarySheet sheet);
 
-    void notifyCookingProcedureAdded(CookingProcedure p);
+    void updateCookingProcedureAdded(SummarySheet sheet, OrderedProcedure p);
 
-    void notifyTaskCreated(Task t);
+    void updateTaskCreated(SummarySheet sheet, Task t);
 
-    void notifyTaskUpdated(Task t);
+    void updateTaskUpdated(SummarySheet sheet, Task t);
 
-    void notifyTaskDeleted(Task t);
+    void updateTaskDeleted(SummarySheet sheet, Task t);
 }
