@@ -1,6 +1,7 @@
 package catering.businesslogic.task;
 
 import catering.businesslogic.procedure.CookingProcedure;
+import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.procedure.Recipe;
 import catering.persistence.PersistenceManager;
 
@@ -9,18 +10,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SummarySheet {
-
     private static final Map<Integer, SummarySheet> allSummarySheets = new HashMap<>();
     private final int id;
     private final ArrayList<Task> tasks;
-    private final ArrayList<CookingProcedure> listedProcedures;
+    private final ArrayList<OrderedProcedure> listedProcedures;
 
-    // Constructor for creating a new SummarySheet from a list of cooking procedures
-    public SummarySheet(ArrayList<Recipe> procedures) {
+    // Constructor for creating a new SummarySheet from a list of recipes (coming from a menu)
+    public SummarySheet(ArrayList<Recipe> recipes) {
         this.id = generateNewId();
-        this.listedProcedures = new ArrayList<>(procedures);
+        this.listedProcedures = new ArrayList<>();
         this.tasks = new ArrayList<>();
-        saveNewSummarySheet();
+        for (int i = 0; i < recipes.size(); i++) {
+            // Convert each Recipe into an OrderedProcedure and assign position
+            this.listedProcedures.add(new OrderedProcedure(recipes.get(i), i));
+        }
     }
 
     // Constructor for loading an existing SummarySheet
@@ -63,7 +66,7 @@ public class SummarySheet {
     }
 
     public static SummarySheet loadById(int id) {
-        if (!allSummarySheets.containsKey(id)){
+        if (!allSummarySheets.containsKey(id)) {
             String query = "SELECT * FROM SummarySheets WHERE id = " + id;
             PersistenceManager.executeQuery(query, rs -> {
                 int idSummarySheet = rs.getInt("id");
@@ -94,16 +97,8 @@ public class SummarySheet {
         return allSummarySheets.get(id);
     }
 
-    private void saveNewSummarySheet() {
-        for (Task task : tasks) {
-            String taskQuery = "INSERT INTO ListedTasks (summary_sheet_id, task_id) VALUES (" + this.id + ", " + task.getId() + ")";
-            PersistenceManager.executeUpdate(taskQuery);
-        }
-
-        for (CookingProcedure procedure : listedProcedures) {
-            String procedureQuery = "INSERT INTO ListedProcedures (summary_sheet_id, procedure_id) VALUES (" + this.id + ", " + procedure.getId() + ")";
-            PersistenceManager.executeUpdate(procedureQuery);
-        }
+    public int getId() {
+        return id;
     }
 
     private int generateNewId() {
@@ -112,8 +107,16 @@ public class SummarySheet {
         return PersistenceManager.getLastId();
     }
 
-    public void addProcedure(CookingProcedure cookingProcedure) {
-        this.listedProcedures.add(cookingProcedure);
+    public OrderedProcedure addProcedure(CookingProcedure newProcedure) {
+        int newPosition = listedProcedures.size();  // Position is the next index in the list
+        OrderedProcedure newOrderedProcedure = new OrderedProcedure(newProcedure, newPosition);
+        listedProcedures.add(newOrderedProcedure);  // Add the new OrderedProcedure to the list
+        return newOrderedProcedure;
+    }
+
+    public void orderProcedure(CookingProcedure procedure, int position) {
+        this.listedProcedures.removeIf(op -> op.getBaseProcedure().equals(procedure));
+        this.listedProcedures.add(position, new OrderedProcedure(procedure, position));
     }
 
     public void addTask(Task task) {
@@ -121,16 +124,25 @@ public class SummarySheet {
     }
 
     public boolean containsProcedure(CookingProcedure cookingProcedure) {
-        return this.listedProcedures.contains(cookingProcedure);
+        // Loop through each OrderedProcedure and check if it wraps the given cookingProcedure
+        for (OrderedProcedure op : listedProcedures) {
+            if (op.getBaseProcedure().equals(cookingProcedure)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<CookingProcedure> getListedProcedures() {
-        return listedProcedures;
+        ArrayList<CookingProcedure> procedures = new ArrayList<>();
+        for (OrderedProcedure op : listedProcedures) {
+            procedures.add(op.getBaseProcedure());
+        }
+        return procedures;
     }
 
-    public void orderProcedure(CookingProcedure procedure, int position){ //TODO probailmente bisonga aggiundere questa parte nel dsd
-        this.listedProcedures.remove(procedure);
-        this.listedProcedures.add(position, procedure);
+    public ArrayList<OrderedProcedure> getListedOrderedProcedures() {
+        return new ArrayList<>(listedProcedures);
     }
 
     @Override
