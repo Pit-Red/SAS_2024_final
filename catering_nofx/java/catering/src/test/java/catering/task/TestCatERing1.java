@@ -27,12 +27,10 @@ public class TestCatERing1 {
             SummarySheet sheet = CatERing.getInstance().getKitchenTaskMgr().getCurrentSummarySheet();
             ArrayList<CookingProcedure> generatedProcedures = sheet.getListedProcedures();
 
-            // testing all recipes in the menu are added corretcly to the summary sheet
+            // testing all recipes in the menu are added correctly to the summary sheet
             for (CookingProcedure procedure : expectedProcedure){
                 System.out.println(generatedProcedures.contains(procedure));
             }
-
-
         }catch (UnauthorizedException | UseCaseLogicException e){
             System.out.println("An exception occurred: " + e.getMessage());
         }
