@@ -33,6 +33,7 @@ public class SummarySheet {
         this.tasks = new ArrayList<>();
     }
 
+    // todo: non mi torna la logica di caricamento di tutti i fogli.. non vedo cicli while o for
     public static void loadAllSummarySheets() {
         String query = "SELECT * FROM SummarySheets";
         PersistenceManager.executeQuery(query, rs -> {
@@ -51,12 +52,16 @@ public class SummarySheet {
             }
         });
 
-        String proceduresQuery = "SELECT * FROM ListedProcedures lp JOIN CookingProcedures cp ON lp.procedure_id = cp.id";
+        String proceduresQuery = "SELECT lp.summary_sheet_id, lp.procedure_id, lp.position, cp.* FROM ListedProcedures lp \" +\n" +
+                "        \"JOIN CookingProcedures cp ON lp.procedure_id = cp.id";
         PersistenceManager.executeQuery(proceduresQuery, rs -> {
-            int id = rs.getInt("summary_sheet_id");
-            SummarySheet summarySheet = allSummarySheets.get(id);
+            int summarySheetId = rs.getInt("summary_sheet_id");
+            SummarySheet summarySheet = allSummarySheets.get(summarySheetId);
             if (summarySheet != null) {
-                summarySheet.addProcedure(CookingProcedure.loadCookingProcedureById(rs.getInt("procedure_id")));
+                int procedureId = rs.getInt("procedure_id");
+                int position = rs.getInt("position");
+                CookingProcedure procedure = CookingProcedure.loadCookingProcedureById(procedureId);
+                summarySheet.addProcedureWithPosition(procedure, position);
             }
         });
     }
@@ -65,6 +70,7 @@ public class SummarySheet {
         return new ArrayList<>(allSummarySheets.values());
     }
 
+    // todo: non mi torna la logica di caricamento di tutti i fogli.. non vedo cicli while o for per il caricamento di tutte le task e procedure
     public static SummarySheet loadById(int id) {
         if (!allSummarySheets.containsKey(id)) {
             String query = "SELECT * FROM SummarySheets WHERE id = " + id;
@@ -84,12 +90,17 @@ public class SummarySheet {
                 }
             });
 
-            String proceduresQuery = "SELECT * FROM ListedProcedures lp JOIN CookingProcedures cp ON lp.procedure_id = cp.id WHERE id = " + id;
+            String proceduresQuery = "SELECT lp.summary_sheet_id, lp.procedure_id, lp.position, cp.* " +
+                    "FROM ListedProcedures lp JOIN CookingProcedures cp ON lp.procedure_id = cp.id " +
+                    "WHERE lp.summary_sheet_id = " + id + " ORDER BY lp.position ASC";
             PersistenceManager.executeQuery(proceduresQuery, rs -> {
                 int idSummarySheet = rs.getInt("summary_sheet_id");
                 SummarySheet summarySheet = allSummarySheets.get(idSummarySheet);
                 if (summarySheet != null) {
-                    summarySheet.addProcedure(CookingProcedure.loadCookingProcedureById(rs.getInt("procedure_id")));
+                    int procedureId = rs.getInt("procedure_id");
+                    int position = rs.getInt("position");
+                    CookingProcedure procedure = CookingProcedure.loadCookingProcedureById(procedureId);
+                    summarySheet.addProcedureWithPosition(procedure, position);
                 }
             });
         }
@@ -112,6 +123,20 @@ public class SummarySheet {
         OrderedProcedure newOrderedProcedure = new OrderedProcedure(newProcedure, newPosition);
         listedProcedures.add(newOrderedProcedure);  // Add the new OrderedProcedure to the list
         return newOrderedProcedure;
+    }
+
+    /**
+     * Adds a cooking procedure to the summary sheet at a specified position.
+     * If the list is not large enough to accommodate the procedure at the given index,
+     * it is temporarily filled with nulls to ensure correct positioning.
+     */
+    public void addProcedureWithPosition(CookingProcedure procedure, int position) {
+        OrderedProcedure orderedProcedure = new OrderedProcedure(procedure, position);
+        // Ensure the list is large enough to accommodate the procedure at the given index
+        while (listedProcedures.size() <= position) {
+            listedProcedures.add(null); // Temporarily fill with nulls if necessary
+        }
+        listedProcedures.set(position, orderedProcedure);
     }
 
     public void orderProcedure(CookingProcedure procedure, int position) {

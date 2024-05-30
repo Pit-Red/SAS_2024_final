@@ -28,10 +28,10 @@ public class TestCatERing1 {
             ArrayList<CookingProcedure> generatedProcedures = sheet.getListedProcedures();
 
             // testing all recipes in the menu are added correctly to the summary sheet
-            for (CookingProcedure procedure : expectedProcedure){
+            for (CookingProcedure procedure : expectedProcedure) {
                 System.out.println(generatedProcedures.contains(procedure));
             }
-        }catch (UnauthorizedException | UseCaseLogicException e){
+        } catch (UnauthorizedException | UseCaseLogicException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }
     }

@@ -21,12 +21,12 @@ public class KitchenTaskManager {
         eventReceivers = new ArrayList<>();
     }
 
+    /**
+     * DCD 1
+     */
     public SummarySheet generateSummarySheet(Service service) throws UnauthorizedException, UseCaseLogicException {
         // preliminary checks
-        User u = CatERing.getInstance().getUserManager().getCurrentUser();
-        if (u == null || !u.isChef()) throw new UnauthorizedException("User must be authenticated as Chef");
-        if (!service.isChefAssigned(u))
-            throw new UnauthorizedException("Chef should be assigned to the service for which the summary sheet shall be created");
+        checkUser();
         if (service.getUsedMenu() == null) throw new UseCaseLogicException("Specified service must have a menu");
 
         SummarySheet sheet = new SummarySheet(service.getUsedMenu().getAllRecipes());
@@ -38,6 +38,9 @@ public class KitchenTaskManager {
         return sheet;
     }
 
+    /**
+     * DCD 1a
+     */
     public SummarySheet openSummarySheet(Service service) throws UnauthorizedException {
         checkUser();
 
@@ -47,6 +50,9 @@ public class KitchenTaskManager {
         return this.currentSummarySheet;
     }
 
+    /**
+     * DCD 2
+     */
     public void addCookingProcedure(CookingProcedure procedure) throws UnauthorizedException, UseCaseLogicException {
         checkUser();
 
@@ -57,6 +63,9 @@ public class KitchenTaskManager {
         this.notifyCookingProcedureAdded(newProcedure);
     }
 
+    /**
+     * DCD 3
+     */
     public void orderSheet(CookingProcedure procedure, int position) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
         checkUser();
 
