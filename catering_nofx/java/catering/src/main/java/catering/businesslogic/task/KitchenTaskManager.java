@@ -6,6 +6,7 @@ import catering.businesslogic.errors.UnauthorizedException;
 import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.event.Service;
 import catering.businesslogic.procedure.CookingProcedure;
+import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.user.User;
 
 import java.util.ArrayList;
@@ -37,11 +38,11 @@ public class KitchenTaskManager {
         return sheet;
     }
 
-    public SummarySheet openSummarySheet(Service service) throws UnauthorizedException{
+    public SummarySheet openSummarySheet(Service service) throws UnauthorizedException {
         checkUser();
 
         this.currentService = service;
-        this.currentSummarySheet= service.getSummarySheet();
+        this.currentSummarySheet = service.getSummarySheet();
 
         return this.currentSummarySheet;
     }
@@ -51,9 +52,9 @@ public class KitchenTaskManager {
 
         if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
 
-        this.currentSummarySheet.addProcedure(procedure);
+        OrderedProcedure newProcedure = this.currentSummarySheet.addProcedure(procedure);
 
-        this.notifyCookingProcedureAdded(procedure);
+        this.notifyCookingProcedureAdded(newProcedure);
     }
 
     public void orderSheet(CookingProcedure procedure, int position) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
@@ -61,8 +62,9 @@ public class KitchenTaskManager {
 
         if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
 
-        if (!this.currentSummarySheet.containsProcedure(procedure)) throw new ItemNotFoundException("The selected procedure is not present in the " +
-                                                                                                    "listed procedures of the selected summary sheet");
+        if (!this.currentSummarySheet.containsProcedure(procedure))
+            throw new ItemNotFoundException("The selected procedure is not present in the " +
+                    "listed procedures of the selected summary sheet");
         this.currentSummarySheet.orderProcedure(procedure, position);
     }
 
@@ -88,17 +90,20 @@ public class KitchenTaskManager {
     public SummarySheet getCurrentSummarySheet() {
         return currentSummarySheet;
     }
-    public Service getCurrentService(){return currentService;}
 
-    private void notifySummarySheetCreated(SummarySheet sheet){
-        for (TaskEventReceiver er: this.eventReceivers) {
-            er.notifySummarySheetCreated(sheet);
+    public Service getCurrentService() {
+        return currentService;
+    }
+
+    private void notifySummarySheetCreated(SummarySheet sheet) {
+        for (TaskEventReceiver er : this.eventReceivers) {
+            er.updateSummarySheetCreated(sheet);
         }
     }
 
-    private void notifyCookingProcedureAdded(CookingProcedure procedure){
-        for (TaskEventReceiver er: this.eventReceivers) {
-            er.notifyCookingProcedureAdded(procedure);
+    private void notifyCookingProcedureAdded(OrderedProcedure procedure) {
+        for (TaskEventReceiver er : this.eventReceivers) {
+            er.updateCookingProcedureAdded(currentSummarySheet, procedure);
         }
     }
 }
