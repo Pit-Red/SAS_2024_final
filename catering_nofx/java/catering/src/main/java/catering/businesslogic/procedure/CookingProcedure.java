@@ -11,6 +11,21 @@ public abstract class CookingProcedure {
     private static final Map<Integer, CookingProcedure> allCookingProcedures = new HashMap<>();
     private static final Map<Integer, Preparation> allPreparations = new HashMap<>();
     private static final Map<Integer, Recipe> allRecipes = new HashMap<>();
+    protected int id;
+    protected int foreignKeyId;
+    protected String name;
+    protected ProcedureType type;
+
+    public CookingProcedure() {
+    }
+
+    public CookingProcedure(int id, int foreignKeyId, String name, ProcedureType type) {
+        this.id = id;
+        this.foreignKeyId = foreignKeyId;
+        this.name = name;
+        this.type = type;
+    }
+
 
     // STATIC FOR PERSISTENCE
     public static ArrayList<CookingProcedure> loadAllProcedures() {
@@ -50,15 +65,14 @@ public abstract class CookingProcedure {
             String name = rs.getString("name");
             if (rs.getString("type").equals("preparation"))
                 proc = new Preparation(name, id, rs.getInt("fk_referenced_preparation"));
-            else
-                proc = new Recipe(name, id, rs.getInt("fk_referenced_preparation"));
+            else proc = new Recipe(name, id, rs.getInt("fk_referenced_preparation"));
             allCookingProcedures.put(proc.getId(), proc);
         });
         return allCookingProcedures.get(id);
     }
 
     public static Recipe loadRecipeById(int id) {
-        if (allRecipes.containsKey(id)) return (Recipe) allRecipes.get(id);
+        if (allRecipes.containsKey(id)) return allRecipes.get(id);
         Recipe rec = new Recipe();
         String query = "SELECT * FROM CookingProcedures WHERE fk_referenced_recipe = " + id;
         PersistenceManager.executeQuery(query, rs -> {
@@ -70,7 +84,7 @@ public abstract class CookingProcedure {
     }
 
     public static Preparation loadPreparationById(int id) {
-        if (allPreparations.containsKey(id)) return (Preparation) allPreparations.get(id);
+        if (allPreparations.containsKey(id)) return allPreparations.get(id);
         Preparation prep = new Preparation();
         String query = "SELECT * FROM Preparation WHERE id = " + id;
         PersistenceManager.executeQuery(query, rs -> {
@@ -93,17 +107,29 @@ public abstract class CookingProcedure {
         return new ArrayList<>(allRecipes.values());
     }
 
-    public abstract String getName();
+    public String getName() {
+        return this.name;
+    }
 
-    public abstract void setName(String name);
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public abstract int getId();
+    public int getId() {
+        return this.id;
+    }
 
-    public abstract void setId(int id);
+    public void setId(int newId) {
+        this.id = newId;
+    }
 
-    public abstract int getForeignKeyId();
+    public int getForeignKeyId() {
+        return this.foreignKeyId;
+    }
 
-    public abstract void setForeignKeyId(int id);
+    public void setForeignKeyId(int foreignKeyId) {
+        this.foreignKeyId = foreignKeyId;
+    }
 
     @Override
     public abstract boolean equals(Object obj);
