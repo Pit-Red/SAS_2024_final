@@ -52,8 +52,7 @@ public class SummarySheet {
             }
         });
 
-        String proceduresQuery = "SELECT lp.summary_sheet_id, lp.procedure_id, lp.position, cp.* FROM ListedProcedures lp \" +\n" +
-                "        \"JOIN CookingProcedures cp ON lp.procedure_id = cp.id";
+        String proceduresQuery = "SELECT lp.summary_sheet_id, lp.procedure_id, lp.position, cp.* FROM ListedProcedures lp JOIN CookingProcedures cp ON lp.procedure_id = cp.id";
         PersistenceManager.executeQuery(proceduresQuery, rs -> {
             int summarySheetId = rs.getInt("summary_sheet_id");
             SummarySheet summarySheet = allSummarySheets.get(summarySheetId);
@@ -70,7 +69,6 @@ public class SummarySheet {
         return new ArrayList<>(allSummarySheets.values());
     }
 
-    // todo: non mi torna la logica di caricamento di tutti i fogli.. non vedo cicli while o for per il caricamento di tutte le task e procedure
     public static SummarySheet loadById(int id) {
         if (!allSummarySheets.containsKey(id)) {
             String query = "SELECT * FROM SummarySheets WHERE id = " + id;
