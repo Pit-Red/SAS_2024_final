@@ -15,6 +15,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.time.Duration;
+
+
 public class Task {
 
     private static Map<Integer, Task> allTasks = new HashMap<>();
@@ -35,6 +38,11 @@ public class Task {
         this.procedure = procedure;
         this.shift = shift;
         this.cook = cook;
+        this.completed = false;
+        this.toPrepare = false;
+        if (cook != null){
+            this.cook = cook;
+        }
     }
 
     public Task(CookingProcedure procedure, KitchenShift shift) {

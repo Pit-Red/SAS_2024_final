@@ -7,6 +7,9 @@ import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.event.Service;
 import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
+import catering.businesslogic.shifts.KitchenShift;
+import catering.businesslogic.shifts.Shift;
+import catering.businesslogic.shifts.ShiftManager;
 import catering.businesslogic.user.User;
 
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ public class KitchenTaskManager {
     private final ArrayList<TaskEventReceiver> eventReceivers;
     private SummarySheet currentSummarySheet;
     private Service currentService;
+    private Task currentWorkingTask;
 
     public KitchenTaskManager() {
         SummarySheet.loadAllSummarySheets();
@@ -77,6 +81,53 @@ public class KitchenTaskManager {
         this.currentSummarySheet.orderProcedure(procedure, position);
     }
 
+    //TODO nel DSD questa funzione ha come input il service, ma considerando che unsiamo currentService non dovrebbe servire
+
+    /**
+     * DCD 4
+     *
+     */
+    public ArrayList<Shift> checkShiftBoard() throws UnauthorizedException{
+        checkUser();
+
+        return null;
+    }
+
+    /**
+     * DCD 5
+     * @param procedure
+     * @param shift
+     * @param cook
+     * @return
+     * @throws UnauthorizedException
+     * @throws UseCaseLogicException
+     */
+    public Task assignCookingProcedure(CookingProcedure procedure, KitchenShift shift, User cook) throws UnauthorizedException, UseCaseLogicException {
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+
+        if (cook != null){
+            boolean cookAvailable = CatERing.getInstance().getShiftMgr().isAvailable(cook, shift);
+            if (!cookAvailable)
+                throw new UseCaseLogicException(cook + " is not available");
+            if (!cook.isCook())
+                throw new UseCaseLogicException(cook + " is not actually a cook");
+        }
+
+        boolean isAssigned = this.currentSummarySheet.isAlreadyAssigned(procedure);
+        if (isAssigned)
+            throw new UseCaseLogicException(procedure + "is already assigned");
+
+        this.currentWorkingTask = this.currentSummarySheet.addAssignment(procedure, shift, cook);
+
+        this.notifyTaskCreated(this.currentWorkingTask);
+
+        return this.currentWorkingTask;
+    }
+
+
+
     private void checkUser() throws UnauthorizedException {
         User u = CatERing.getInstance().getUserManager().getCurrentUser();
         if (u == null || !u.isChef()) throw new UnauthorizedException("User must be authenticated as Chef");
@@ -113,6 +164,12 @@ public class KitchenTaskManager {
     private void notifyCookingProcedureAdded(OrderedProcedure procedure) {
         for (TaskEventReceiver er : this.eventReceivers) {
             er.updateCookingProcedureAdded(currentSummarySheet, procedure);
+        }
+    }
+
+    private void notifyTaskCreated(Task task){
+        for (TaskEventReceiver er : this.eventReceivers) {
+            er.updateTaskCreated(currentSummarySheet, task);
         }
     }
 }
