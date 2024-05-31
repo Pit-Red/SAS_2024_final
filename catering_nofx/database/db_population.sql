@@ -1,34 +1,44 @@
+-- Inserting data for table `Roles`
+INSERT INTO `Roles` (`id`, `role`)
+VALUES ('c', 'cuoco'),
+       ('h', 'chef'),
+       ('o', 'organizzatore'),
+       ('s', 'servizio');
+
+
+-- Inserting data for table `Users`
+INSERT INTO `Users` (`id`, `username`)
+VALUES (1, 'Alice'),
+       (2, 'Bob'),
+       (3, 'Charlie'),
+       (4, 'Dana'),
+       (5, 'Eva'),
+       (6, 'Frank'),
+       (7, 'Georgia'),
+       (8, 'Henry'),
+       (9, 'Isla'),
+       (10, 'Jack');
+
+-- Inserting data for table `UserRoles`
+INSERT INTO `UserRoles` (`user_id`, `role_id`)
+VALUES (1, 'o'),
+       (2, 'h'),
+       (3, 's'),
+       (4, 'c'),
+       (5, 'h'), -- Eva as Chef
+       (6, 'h'), -- Frank as Head Chef
+       (7, 'o'), -- Georgia as Organizer
+       (8, 's'), -- Henry as Service Staff
+       (9, 'c'), -- Isla as Chef
+       (10, 'h'); -- Jack as Head Chef
+
 -- Inserting data for table `Events`
 INSERT INTO `Events` (`id`, `name`, `date_start`, `date_end`, `expected_participants`, `organizer_id`)
 VALUES (1, 'Wedding Reception', '2023-07-15', '2023-07-15', 200, 2),
        (2, 'Corporate Gala', '2023-08-01', '2023-08-01', 300, 3),
        (3, 'Birthday Party', '2023-09-20', '2023-09-20', 100, 1);
 
--- Inserting data for table `Menus`
-INSERT INTO `Menus` (`id`, `title`, `owner_id`, `published`)
-VALUES (1, 'Spring Wedding Menu', 5, 1),
-       (2, 'Corporate Dinner', 3, 1),
-       (3, 'Birthday Desserts', 2, 1);
 
--- Inserting data for table `MenuSections`
-INSERT INTO `MenuSections` (`id`, `menu_id`, `name`, `position`)
-VALUES (1, 1, 'Appetizers', 1),
-       (2, 1, 'Main Course', 2),
-       (3, 2, 'Desserts', 3);
-
--- Inserting data for table `MenuItems`
-INSERT INTO `MenuItems` (`id`, `menu_id`, `section_id`, `description`, `recipe_id`, `position`)
-VALUES (1, 1, 1, 'Tomato Soup', 1, 1),
-       (2, 1, 2, 'Chicken Parmesan', 5, 2),
-       (3, 2, 3, 'Seared Salmon', 8, 1),
-       (4, 2, 3, 'Roasted Potatoes', 18, 2),
-       (5, 3, 3, 'Chocolate Mousse', 19, 1);
-
--- Inserting data for table `MenuFeatures`
-INSERT INTO `MenuFeatures` (`menu_id`, `name`, `value`)
-VALUES (1, 'Vegetarian', 1),
-       (2, 'Gluten Free', 1),
-       (3, 'Vegan', 0);
 
 -- Inserting data for table `Preparations`
 INSERT INTO `Preparations` (`id`)
@@ -82,39 +92,31 @@ VALUES (1, 'Boil Pasta', 'recipe', 1, NULL),
        (9, 'Prepare Dough', 'preparation', NULL, 9),
        (10, 'Marinate Beef', 'preparation', NULL, 10);
 
--- Inserting data for table `Roles`
-INSERT INTO `Roles` (`id`, `role`)
-VALUES ('c', 'cuoco'),
-       ('h', 'chef'),
-       ('o', 'organizzatore'),
-       ('s', 'servizio');
+-- Inserting data for table `Menus`
+INSERT INTO `Menus` (`id`, `title`, `owner_id`, `published`)
+VALUES (1, 'Spring Wedding Menu', 5, 1),
+       (2, 'Corporate Dinner', 3, 1),
+       (3, 'Birthday Desserts', 2, 1);
 
+-- Inserting data for table `MenuSections`
+INSERT INTO `MenuSections` (`id`, `menu_id`, `name`, `position`)
+VALUES (1, 1, 'Appetizers', 1),
+       (2, 1, 'Main Course', 2),
+       (3, 2, 'Desserts', 3);
 
--- Inserting data for table `Users`
-INSERT INTO `Users` (`id`, `username`)
-VALUES (1, 'Alice'),
-       (2, 'Bob'),
-       (3, 'Charlie'),
-       (4, 'Dana'),
-       (5, 'Eva'),
-       (6, 'Frank'),
-       (7, 'Georgia'),
-       (8, 'Henry'),
-       (9, 'Isla'),
-       (10, 'Jack');
+-- Inserting data for table `MenuItems`
+INSERT INTO `MenuItems` (`id`, `menu_id`, `section_id`, `description`, `recipe_id`, `position`)
+VALUES (1, 1, 1, 'Tomato Soup', 1, 1),
+       (2, 1, 2, 'Chicken Parmesan', 5, 2),
+       (3, 2, 3, 'Seared Salmon', 8, 1),
+       (4, 2, 3, 'Roasted Potatoes', 18, 2),
+       (5, 3, 3, 'Chocolate Mousse', 19, 1);
 
--- Inserting data for table `UserRoles`
-INSERT INTO `UserRoles` (`user_id`, `role_id`)
-VALUES (1, 'o'),
-       (2, 'h'),
-       (3, 's'),
-       (4, 'c'),
-       (5, 'h'), -- Eva as Chef
-       (6, 'h'), -- Frank as Head Chef
-       (7, 'o'), -- Georgia as Organizer
-       (8, 's'), -- Henry as Service Staff
-       (9, 'c'), -- Isla as Chef
-       (10, 'h'); -- Jack as Head Chef
+-- Inserting data for table `MenuFeatures`
+INSERT INTO `MenuFeatures` (`menu_id`, `name`, `value`)
+VALUES (1, 'Vegetarian', 1),
+       (2, 'Gluten Free', 1),
+       (3, 'Vegan', 0);
 
 -- Inserting data for table `Tasks`
 INSERT INTO `Tasks` (`id`, `cooking_procedure_id`, `cook_id`, `time_to_complete`, `completed`, `to_prepare`)
