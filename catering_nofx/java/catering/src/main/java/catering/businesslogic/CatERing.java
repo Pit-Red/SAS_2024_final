@@ -5,6 +5,7 @@ import catering.businesslogic.menu.MenuManager;
 import catering.businesslogic.procedure.CookingProcedureManager;
 import catering.businesslogic.task.KitchenTaskManager;
 import catering.businesslogic.user.UserManager;
+import catering.persistence.KitchenTaskPersistence;
 import catering.persistence.MenuPersistence;
 
 public class CatERing {
@@ -13,8 +14,9 @@ public class CatERing {
     private final CookingProcedureManager procedureMgr;
     private final UserManager userMgr;
     private final EventManager eventMgr;
-    private final MenuPersistence menuPersistence;
     private final KitchenTaskManager kitchenTaskMgr;
+    private final MenuPersistence menuPersistence;
+    private final KitchenTaskPersistence taskPersistence;
 
     private CatERing() {
 
@@ -22,10 +24,13 @@ public class CatERing {
         procedureMgr = new CookingProcedureManager();
         userMgr = new UserManager();
         eventMgr = new EventManager();
-        menuPersistence = new MenuPersistence();
         kitchenTaskMgr = new KitchenTaskManager();
 
+
+        menuPersistence = new MenuPersistence();
         menuMgr.addEventReceiver(menuPersistence);
+        taskPersistence = new KitchenTaskPersistence();
+        kitchenTaskMgr.addEventReceiver(taskPersistence);
     }
 
     public static CatERing getInstance() {
