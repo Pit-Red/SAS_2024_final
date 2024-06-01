@@ -36,7 +36,6 @@ public class SummarySheet {
         this.tasks = new ArrayList<>();
     }
 
-    // todo: non mi torna la logica di caricamento di tutti i fogli.. non vedo cicli while o for
     public static void loadAllSummarySheets() {
         String query = "SELECT * FROM SummarySheets";
         PersistenceManager.executeQuery(query, rs -> {
@@ -140,9 +139,11 @@ public class SummarySheet {
         listedProcedures.set(position, orderedProcedure);
     }
 
-    public void orderProcedure(CookingProcedure procedure, int position) {
+    public OrderedProcedure orderProcedure(CookingProcedure procedure, int newPosition) {
         this.listedProcedures.removeIf(op -> op.getBaseProcedure().equals(procedure));
-        this.listedProcedures.add(position, new OrderedProcedure(procedure, position));
+        OrderedProcedure newProcedure = new OrderedProcedure(procedure, newPosition);
+        this.listedProcedures.add(newPosition, newProcedure);
+        return newProcedure;
     }
 
     public void addTask(Task task) {

@@ -77,17 +77,18 @@ public class KitchenTaskManager {
 
         if (!this.currentSummarySheet.containsProcedure(procedure))
             throw new ItemNotFoundException("The selected procedure is not present in the " +
-                    "listed procedures of the selected summary sheet");
-        this.currentSummarySheet.orderProcedure(procedure, position);
+                    "selected summary sheet's listed procedures");
+
+        OrderedProcedure newProcedure = this.currentSummarySheet.orderProcedure(procedure, position);
+        this.notifyOrderedProcedureUpdated(newProcedure);
     }
 
     //TODO nel DSD questa funzione ha come input il service, ma considerando che unsiamo currentService non dovrebbe servire
 
     /**
      * DCD 4
-     *
      */
-    public ArrayList<Shift> checkShiftBoard() throws UnauthorizedException{
+    public ArrayList<Shift> checkShiftBoard() throws UnauthorizedException {
         checkUser();
 
         return null;
@@ -95,6 +96,7 @@ public class KitchenTaskManager {
 
     /**
      * DCD 5
+     *
      * @param procedure
      * @param shift
      * @param cook
@@ -107,7 +109,7 @@ public class KitchenTaskManager {
 
         if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
 
-        if (cook != null){
+        if (cook != null) {
             boolean cookAvailable = CatERing.getInstance().getShiftMgr().isAvailable(cook, shift);
             if (!cookAvailable)
                 throw new UseCaseLogicException(cook + " is not available");
@@ -125,7 +127,6 @@ public class KitchenTaskManager {
 
         return this.currentWorkingTask;
     }
-
 
 
     private void checkUser() throws UnauthorizedException {
@@ -167,7 +168,13 @@ public class KitchenTaskManager {
         }
     }
 
-    private void notifyTaskCreated(Task task){
+    private void notifyOrderedProcedureUpdated(OrderedProcedure procedure) {
+        for (TaskEventReceiver receiver : this.eventReceivers) {
+            receiver.updateOrderedProcedurePosition(currentSummarySheet, procedure);
+        }
+    }
+
+    private void notifyTaskCreated(Task task) {
         for (TaskEventReceiver er : this.eventReceivers) {
             er.updateTaskCreated(currentSummarySheet, task);
         }

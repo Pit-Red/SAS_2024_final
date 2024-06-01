@@ -7,6 +7,8 @@ public interface TaskEventReceiver {
 
     void updateCookingProcedureAdded(SummarySheet sheet, OrderedProcedure p);
 
+    void updateOrderedProcedurePosition(SummarySheet sheet, OrderedProcedure p);
+
     void updateTaskCreated(SummarySheet sheet, Task t);
 
     void updateTaskUpdated(SummarySheet sheet, Task t);

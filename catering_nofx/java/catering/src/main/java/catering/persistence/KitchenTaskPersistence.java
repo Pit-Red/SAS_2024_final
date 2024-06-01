@@ -1,6 +1,5 @@
 package catering.persistence;
 
-import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.task.SummarySheet;
 import catering.businesslogic.task.Task;
@@ -25,6 +24,14 @@ public class KitchenTaskPersistence implements TaskEventReceiver {
                 + p.getId() + ", "
                 + p.getPosition() + ")";
 
+        PersistenceManager.executeUpdate(procedureQuery);
+    }
+
+    @Override
+    public void updateOrderedProcedurePosition(SummarySheet sheet, OrderedProcedure p) {
+        String procedureQuery = "UPDATE ListedProcedures SET position = " + p.getPosition() +
+                " WHERE summary_sheet_id = " + sheet.getId() +
+                " AND procedure_id = " + p.getId();
         PersistenceManager.executeUpdate(procedureQuery);
     }
 
