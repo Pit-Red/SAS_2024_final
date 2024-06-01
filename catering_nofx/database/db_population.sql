@@ -139,3 +139,19 @@ INSERT INTO `Services` (`id`, `event_id`, `name`, `used_menu_id`, `service_date`
 VALUES (1, 1, 'Lunch Service', 1, '2023-07-15', '12:00:00', '15:00:00', 200, 5, 1),
        (2, 2, 'Dinner Service', 2, '2023-08-01', '18:00:00', '21:00:00', 300, 2, 0),
        (3, 3, 'Cake and Coffee', 3, '2023-09-20', '17:00:00', '20:00:00', 100, 6, 0) ;
+
+-- Inserting data for table `ListedProcedures`
+INSERT INTO `ListedProcedures` (`summary_sheet_id`, `procedure_id`, `position`)
+VALUES
+    (1, 1, 0),  -- Boil Pasta at position 0 in Summary Sheet 1
+    (1, 2, 1),  -- Prepare Sauce at position 1 in Summary Sheet 1
+    (1, 5, 2),  -- Grill Chicken at position 2 in Summary Sheet 1
+    (1, 4, 3),  -- Mix Salad at position 3 in Summary Sheet 1
+
+    (2, 3, 0),  -- Bake Bread at position 0 in Summary Sheet 2
+    (2, 6, 1),  -- Fry Potatoes at position 1 in Summary Sheet 2
+    (2, 7, 2),  -- Steam Vegetables at position 2 in Summary Sheet 2
+
+    (3, 8, 0),  -- Chop Onions at position 0 in Summary Sheet 3
+    (3, 9, 1),  -- Prepare Dough at position 1 in Summary Sheet 3
+    (3, 10, 2); -- Marinate Beef at position 2 in Summary Sheet 3
