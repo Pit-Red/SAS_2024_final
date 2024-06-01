@@ -126,7 +126,7 @@ VALUES (1, 5, 9, 'PT2H', FALSE, TRUE),
 
 -- Inserting data for table `SummarySheets`
 INSERT INTO `SummarySheets` (`id`)
-VALUES (NULL);
+VALUES (1), (2), (3);
 
 -- Inserting data for table `ListedTasks`
 INSERT INTO `ListedTasks` (`summary_sheet_id`, `task_id`)
@@ -137,8 +137,8 @@ VALUES (1, 1),
 -- Inserting data for table `Services`
 INSERT INTO `Services` (`id`, `event_id`, `name`, `used_menu_id`, `service_date`, `time_start`, `time_end`, `expected_participants`, `chef_id`, `summary_sheet_id`)
 VALUES (1, 1, 'Lunch Service', 1, '2023-07-15', '12:00:00', '15:00:00', 200, 5, 1),
-       (2, 2, 'Dinner Service', 2, '2023-08-01', '18:00:00', '21:00:00', 300, 2, 0),
-       (3, 3, 'Cake and Coffee', 3, '2023-09-20', '17:00:00', '20:00:00', 100, 6, 0) ;
+       (2, 2, 'Dinner Service', 2, '2023-08-01', '18:00:00', '21:00:00', 300, 2, 2),
+       (3, 3, 'Cake and Coffee', 3, '2023-09-20', '17:00:00', '20:00:00', 100, 6, 3) ;
 
 -- Inserting data for table `ListedProcedures`
 INSERT INTO `ListedProcedures` (`summary_sheet_id`, `procedure_id`, `position`)
