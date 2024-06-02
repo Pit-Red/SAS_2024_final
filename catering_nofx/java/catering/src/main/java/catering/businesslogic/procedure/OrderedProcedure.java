@@ -59,4 +59,9 @@ public class OrderedProcedure extends CookingProcedure {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "[" + baseProcedure.toString() + ", Position: " + position + "]";
+    }
 }

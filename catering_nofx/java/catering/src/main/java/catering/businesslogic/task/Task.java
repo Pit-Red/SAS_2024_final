@@ -76,6 +76,7 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+        this.toPrepare = !completed;
     }
 
     public Boolean getToPrepare() {
@@ -179,5 +180,21 @@ public class Task {
             task.setDoses(doses);
 
         allTasks.put(id, task);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", timeToComplete=" + timeToComplete +
+                ", completed=" + completed +
+                ", toPrepare=" + toPrepare +
+                ", amount='" + amount + '\'' +
+                ", doses='" + doses + '\'' +
+                ", procedure=" + procedure +
+                ", cook=" + cook +
+                ", shift=" + shift +
+                ", initialTask=" + initialTask +
+                '}';
     }
 }

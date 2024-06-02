@@ -133,4 +133,7 @@ public abstract class CookingProcedure {
 
     @Override
     public abstract boolean equals(Object obj);
+
+    @Override
+    public abstract String toString();
 }

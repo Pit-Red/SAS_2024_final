@@ -1,16 +1,17 @@
 package catering.task;
 
 import catering.businesslogic.CatERing;
-import catering.businesslogic.errors.ItemNotFoundException;
 import catering.businesslogic.errors.UnauthorizedException;
 import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.event.Service;
 import catering.businesslogic.procedure.CookingProcedure;
-import catering.businesslogic.task.SummarySheet;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TestCatERing2 {
+
+    // Testing addCookingProcedure function
     public static void main(String[] args) {
         try {
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
@@ -18,19 +19,19 @@ public class TestCatERing2 {
 
             Service service = CatERing.getInstance().getEventManager().getServiceById(1);
 
-            System.out.println("Generating new summary sheet starting from -> " + service);
-            CatERing.getInstance().getKitchenTaskMgr().generateSummarySheet(service);
-            SummarySheet sheet = CatERing.getInstance().getKitchenTaskMgr().getCurrentSummarySheet();
-            ArrayList<CookingProcedure> generatedProcedures = sheet.getListedProcedures();
+            System.out.println("Opening an already present summary sheet starting from -> " + service);
+            CatERing.getInstance().getKitchenTaskMgr().openSummarySheet(service);
 
-            System.out.println("Before -> " + generatedProcedures);
+            System.out.println(CatERing.getInstance().getKitchenTaskMgr().getCurrentSummarySheet());
 
-            CatERing.getInstance().getKitchenTaskMgr().orderSheet(generatedProcedures.get(generatedProcedures.size()-1), 0);
+            ArrayList<CookingProcedure> procedures = CatERing.getInstance().getProcedureManager().getProcedures();
+            Random random = new Random();
+            CookingProcedure randomProcedure = procedures.get(random.nextInt(procedures.size()));
+            CatERing.getInstance().getKitchenTaskMgr().addCookingProcedure(randomProcedure);
 
-            System.out.println("After -> " + generatedProcedures);
-
-
-        }catch (UnauthorizedException | UseCaseLogicException | ItemNotFoundException e){
+            System.out.println(CatERing.getInstance().getKitchenTaskMgr().getCurrentSummarySheet());
+        }
+        catch (UnauthorizedException | UseCaseLogicException e){
             System.out.println("An exception occurred: " + e.getMessage());
         }
     }

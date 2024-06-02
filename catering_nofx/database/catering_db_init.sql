@@ -235,7 +235,9 @@ CREATE TABLE `ListedProcedures`
     `position`         int(11) NOT NULL,
     FOREIGN KEY (`summary_sheet_id`) REFERENCES SummarySheets (`id`),
     FOREIGN KEY (`procedure_id`) REFERENCES CookingProcedures (`id`),
-    PRIMARY KEY (`summary_sheet_id`, `procedure_id`)
+    PRIMARY KEY (`summary_sheet_id`, `procedure_id`, `position`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+
 

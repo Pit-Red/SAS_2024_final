@@ -11,6 +11,7 @@ import catering.businesslogic.shifts.KitchenShift;
 import catering.businesslogic.shifts.Shift;
 import catering.businesslogic.shifts.ShiftManager;
 import catering.businesslogic.user.User;
+import catering.businesslogic.user.UserManager;
 
 import java.util.ArrayList;
 
@@ -83,7 +84,6 @@ public class KitchenTaskManager {
         this.notifyOrderedProcedureUpdated(newProcedure);
     }
 
-    //TODO nel DSD questa funzione ha come input il service, ma considerando che unsiamo currentService non dovrebbe servire
 
     /**
      * DCD 4
@@ -126,6 +126,50 @@ public class KitchenTaskManager {
         this.notifyTaskCreated(this.currentWorkingTask);
 
         return this.currentWorkingTask;
+    }
+
+    /**
+     * DCD 5a
+     * @param task
+     * @return
+     * @throws UnauthorizedException
+     * @throws UseCaseLogicException
+     * @throws ItemNotFoundException
+     */
+    public Task markCookingProcedureAsDone(Task task) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException{
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+
+        this.currentSummarySheet.markCookingProcedureAsDone(task);
+
+        return task;
+    }
+
+    public Task modifyTask(Task task, CookingProcedure procedure, KitchenShift shift, User cook) throws UnauthorizedException, UseCaseLogicException {
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+
+        if (!this.currentSummarySheet.getTasks().contains(task)) throw new UseCaseLogicException("The specified task is not present in this Summary Sheet");
+
+        if (cook != null && !cook.isCook()) throw  new UseCaseLogicException("The specified user in not acutely a cook");
+
+        if (cook != null && shift != null){
+            if(!CatERing.getInstance().getShiftMgr().isAvailable(cook, shift)) throw new UseCaseLogicException(cook + " is not available for the specified shift");
+        }
+
+        if (cook != null && shift == null){
+            if(!CatERing.getInstance().getShiftMgr().isAvailable(cook, task.getShift())) throw new UseCaseLogicException(cook + " is not available for the specified shift");
+        }
+
+        if (procedure != null){
+            if (this.currentSummarySheet.isAlreadyAssigned(procedure)) throw new UseCaseLogicException(procedure + " is already assigned");
+        }
+
+        notifyUpdatedTask(task);
+
+        return task;
     }
 
 
@@ -177,6 +221,12 @@ public class KitchenTaskManager {
     private void notifyTaskCreated(Task task) {
         for (TaskEventReceiver er : this.eventReceivers) {
             er.updateTaskCreated(currentSummarySheet, task);
+        }
+    }
+
+    private void notifyUpdatedTask(Task task) {
+        for (TaskEventReceiver er : this.eventReceivers) {
+            er.updateTaskUpdated(currentSummarySheet, task);
         }
     }
 }

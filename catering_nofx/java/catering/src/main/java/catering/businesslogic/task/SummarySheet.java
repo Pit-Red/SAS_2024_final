@@ -1,5 +1,6 @@
 package catering.businesslogic.task;
 
+import catering.businesslogic.errors.ItemNotFoundException;
 import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.procedure.Recipe;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class SummarySheet {
     private static final Map<Integer, SummarySheet> allSummarySheets = new HashMap<>();
     private final int id;
+
     private final ArrayList<Task> tasks;
     private final ArrayList<OrderedProcedure> listedProcedures;
 
@@ -171,6 +173,9 @@ public class SummarySheet {
     public ArrayList<OrderedProcedure> getListedOrderedProcedures() {
         return new ArrayList<>(listedProcedures);
     }
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
     @Override
     public String toString() {
@@ -185,5 +190,45 @@ public class SummarySheet {
         Task task = new Task(procedure, shift, cook);
         this.tasks.add(task);
         return task;
+    }
+
+    public Task markCookingProcedureAsDone(Task task) throws ItemNotFoundException{
+        if (!tasks.contains(task)) throw new ItemNotFoundException("The selected task does not exists");
+
+        task.setCompleted(true);
+
+        return task;
+    }
+
+    public Task modifyTask (Task task, CookingProcedure procedure, KitchenShift shift, User cook) throws ItemNotFoundException {
+        if (!tasks.contains(task)) throw new ItemNotFoundException("The selected task does not exists"); //TODO non presente nel dsd
+
+        if (procedure != null)
+            task.setProcedure(procedure);
+        if (shift != null)
+            task.setShift(shift);
+        if (cook != null)
+            task.setCook(cook);
+
+        return task;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Check for reference equality.
+        if (this == obj) {
+            return true;
+        }
+
+        // Check for null and ensure the exact same class for comparison.
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        // Type cast the object for field comparison.
+        SummarySheet other = (SummarySheet) obj;
+
+        // Check for field equality.
+        return this.id == other.id;
     }
 }

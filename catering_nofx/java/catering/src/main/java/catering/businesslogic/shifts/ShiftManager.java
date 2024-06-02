@@ -1,6 +1,9 @@
 package catering.businesslogic.shifts;
 
+import catering.businesslogic.event.Service;
 import catering.businesslogic.user.User;
+
+import java.util.ArrayList;
 
 public class ShiftManager {
 
