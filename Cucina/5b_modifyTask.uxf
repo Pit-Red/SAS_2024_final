@@ -1,11 +1,9 @@
-<diagram program="umletino" version="15.1"><zoom_level>5</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLPackage</id><coordinates><x>210</x><y>0</y><w>45</w><h>35</h></coordinates><panel_attributes>UI</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>30</y><w>15</w><h>810</h></coordinates><panel_attributes>lt=.
-group=group-0</panel_attributes><additional_attributes>10;10;10;1600</additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>45</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-modifyTask (task, procedure?, shift?, cook?) </panel_attributes><additional_attributes>290;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>325</x><y>10</y><w>100</w><h>25</h></coordinates><panel_attributes>kitchenTaskMgr:
-KitchenTaskManager</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>30</y><w>15</w><h>810</h></coordinates><panel_attributes>lt=.
-group=group-1</panel_attributes><additional_attributes>10;10;10;1600</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>370</x><y>55</y><w>10</w><h>745</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>480</x><y>315</y><w>90</w><h>25</h></coordinates><panel_attributes>currentSummarySheet: 
-SummarySheet</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>335</y><w>15</w><h>505</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;990</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>690</x><y>395</y><w>115</w><h>25</h></coordinates><panel_attributes>listedTasks: 
-ArrayList&lt;Task&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>745</x><y>415</y><w>15</w><h>300</h></coordinates><panel_attributes>lt=.
-group=group-4</panel_attributes><additional_attributes>10;10;10;580</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>745</x><y>435</y><w>10</w><h>250</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>110</x><y>100</y><w>735</w><h>730</h></coordinates><panel_attributes>alt 
+<diagram program="umletino" version="15.1"><zoom_level>5</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLPackage</id><coordinates><x>310</x><y>0</y><w>45</w><h>35</h></coordinates><panel_attributes>UI</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>30</y><w>15</w><h>730</h></coordinates><panel_attributes>lt=.
+group=group-0</panel_attributes><additional_attributes>10;10;10;1440</additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>45</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+modifyTask (task, procedure?, shift?, cook?) </panel_attributes><additional_attributes>290;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>425</x><y>10</y><w>100</w><h>25</h></coordinates><panel_attributes>kitchenTaskMgr:
+KitchenTaskManager</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>30</y><w>15</w><h>730</h></coordinates><panel_attributes>lt=.
+group=group-1</panel_attributes><additional_attributes>10;10;10;1440</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>470</x><y>55</y><w>10</w><h>680</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>580</x><y>315</y><w>90</w><h>25</h></coordinates><panel_attributes>currentSummarySheet: 
+SummarySheet</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>335</y><w>15</w><h>425</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;830</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>210</x><y>100</y><w>735</w><h>650</h></coordinates><panel_attributes>alt 
 fg=#761C8C
 --
 
@@ -28,17 +26,17 @@ fg=#761C8C
 -.
 
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>120</x><y>135</y><w>90</w><h>20</h></coordinates><panel_attributes>fg=#761C8C
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>220</x><y>135</y><w>90</w><h>20</h></coordinates><panel_attributes>fg=#761C8C
 [kitchenTaskMgr.getCurrentSummarySheet() == null]
 style=wordwrap
-fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>135</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>135</x><y>230</y><w>235</w><h>60</h></coordinates><panel_attributes>opt 
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>135</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>235</x><y>230</y><w>235</w><h>60</h></coordinates><panel_attributes>opt 
 [cook != null &amp;&amp; 
 shift != null] 
 --
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>265</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>140</x><y>260</y><w>230</w><h>25</h></coordinates><panel_attributes>opt 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>265</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>240</x><y>260</y><w>230</w><h>25</h></coordinates><panel_attributes>opt 
 [!StaffAvailabilityManager.
 		.isAvailable(cook, shift)] 
 fg=#761C8C
@@ -46,12 +44,12 @@ fg=#761C8C
 
 
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>135</x><y>290</y><w>235</w><h>60</h></coordinates><panel_attributes>opt 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>235</x><y>290</y><w>235</w><h>60</h></coordinates><panel_attributes>opt 
 [cook != null &amp;&amp; 
 shift == null] 
 --
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>140</x><y>315</y><w>230</w><h>30</h></coordinates><panel_attributes>opt 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>240</x><y>315</y><w>230</w><h>30</h></coordinates><panel_attributes>opt 
 [!StaffAvailabilityManager
 .isAvailable(cook, 
 task.getShift())] 
@@ -60,26 +58,26 @@ fg=#761C8C
 
 
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>325</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>135</x><y>350</y><w>440</w><h>60</h></coordinates><panel_attributes>opt 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>325</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>235</x><y>350</y><w>440</w><h>60</h></coordinates><panel_attributes>opt 
 [procedure != null] 
 --
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>375</x><y>355</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-isAlreadyAssigned (procedure)</panel_attributes><additional_attributes>290;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>375</x><y>370</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-isAssigned</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>520</x><y>365</y><w>10</w><h>425</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>140</x><y>380</y><w>230</w><h>25</h></coordinates><panel_attributes>opt 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>475</x><y>355</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+isAlreadyAssigned (procedure)</panel_attributes><additional_attributes>290;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>475</x><y>370</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+isAssigned</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>620</x><y>365</y><w>10</w><h>360</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>240</x><y>380</y><w>230</w><h>25</h></coordinates><panel_attributes>opt 
 [isAssigned] 
 fg=#761C8C
 --
 
 
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>385</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Text</id><coordinates><x>120</x><y>165</y><w>90</w><h>20</h></coordinates><panel_attributes>fg=#761C8C
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>385</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Text</id><coordinates><x>220</x><y>165</y><w>90</w><h>20</h></coordinates><panel_attributes>fg=#761C8C
 [!currentSummarySheet.getListedTasks.contains(task)]
 style=wordwrap
-fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>165</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>455</x><y>500</y><w>275</w><h>55</h></coordinates><panel_attributes>opt 
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>165</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>555</x><y>455</y><w>275</w><h>55</h></coordinates><panel_attributes>opt 
 [procedure != null] 
 --
 
@@ -88,14 +86,12 @@ throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;2
 
 
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>590</x><y>465</y><w>90</w><h>25</h></coordinates><panel_attributes>
-task: Task</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>485</y><w>15</w><h>195</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;370</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>630</x><y>515</y><w>10</w><h>140</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>505</y><w>115</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-setProcedure (procedure)</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>635</x><y>520</y><w>100</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>690</x><y>420</y><w>90</w><h>25</h></coordinates><panel_attributes>
+task: Task</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>730</x><y>440</y><w>15</w><h>195</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;370</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>730</x><y>470</y><w>10</w><h>140</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>625</x><y>460</y><w>115</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+setProcedure (procedure)</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>735</x><y>475</y><w>100</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
 this.cookingProcedure = 
-procedure</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>375</x><y>415</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-modifyTask (task, procedure?, shift?, cook?) </panel_attributes><additional_attributes>290;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>445</y><w>230</w><h>25</h></coordinates><panel_attributes>lt=&lt;.
-index
-</panel_attributes><additional_attributes>10;20;440;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>455</x><y>555</y><w>275</w><h>55</h></coordinates><panel_attributes>opt 
+procedure</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>475</x><y>415</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+modifyTask (task, procedure?, shift?, cook?) </panel_attributes><additional_attributes>290;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>555</x><y>510</y><w>275</w><h>55</h></coordinates><panel_attributes>opt 
 [shift != null] 
 --
 
@@ -104,9 +100,9 @@ index
 
 
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>560</y><w>115</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-setShift (shift)</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>635</x><y>575</y><w>70</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-this.shift = shift</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>455</x><y>610</y><w>275</w><h>55</h></coordinates><panel_attributes>opt 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>625</x><y>515</y><w>115</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+setShift (shift)</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>735</x><y>530</y><w>70</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+this.shift = shift</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>555</x><y>565</y><w>275</w><h>55</h></coordinates><panel_attributes>opt 
 [cook != null] 
 --
 
@@ -115,35 +111,33 @@ this.shift = shift</panel_attributes><additional_attributes>10;50;40;50;40;10;10
 
 
 fontsize=11
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>615</y><w>115</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-setCook (cook)</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>635</x><y>630</y><w>75</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-this.cook = cook</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>425</y><w>230</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-indexOf (task)</panel_attributes><additional_attributes>440;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>675</y><w>230</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-set (index, task)</panel_attributes><additional_attributes>440;20;10;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>815</x><y>750</y><w>10</w><h>10</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>740</y><w>295</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-updateTaskUpdated (currentSummarySheet, task)</panel_attributes><additional_attributes>570;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>455</x><y>725</y><w>380</w><h>45</h></coordinates><panel_attributes>for each
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>625</x><y>570</y><w>115</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+setCook (cook)</panel_attributes><additional_attributes>210;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>735</x><y>585</y><w>75</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+this.cook = cook</panel_attributes><additional_attributes>10;50;40;50;40;10;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>915</x><y>685</y><w>10</w><h>10</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>675</y><w>295</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+updateTaskUpdated (currentSummarySheet, task)</panel_attributes><additional_attributes>570;20;10;20</additional_attributes></element><element><id>UMLFrame</id><coordinates><x>555</x><y>660</y><w>380</w><h>45</h></coordinates><panel_attributes>for each
 er in 
 eventReceivers
-fg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>525</x><y>720</y><w>10</w><h>50</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>690</y><w>105</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-notifyTaskUpdated(task)</panel_attributes><additional_attributes>20;60;50;60;50;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>30</y><w>20</w><h>730</h></coordinates><panel_attributes>lt=.
-</panel_attributes><additional_attributes>10;10;20;1420;20;1440</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>765</x><y>10</y><w>95</w><h>25</h></coordinates><panel_attributes>er:
+fg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>625</x><y>655</y><w>10</w><h>50</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>625</x><y>625</y><w>105</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+notifyTaskUpdated(task)</panel_attributes><additional_attributes>20;60;50;60;50;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>30</y><w>20</w><h>720</h></coordinates><panel_attributes>lt=.
+</panel_attributes><additional_attributes>10;10;20;1420;20;1310</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>865</x><y>10</y><w>95</w><h>25</h></coordinates><panel_attributes>er:
 MenuEventReceiver
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>375</x><y>780</y><w>155</w><h>25</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>475</x><y>715</y><w>155</w><h>25</h></coordinates><panel_attributes>lt=&lt;.
 task
-</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>790</y><w>155</w><h>25</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>725</y><w>155</w><h>25</h></coordinates><panel_attributes>lt=&lt;.
 task
-</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>450</x><y>10</y><w>120</w><h>25</h></coordinates><panel_attributes>userMgr:
+</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>550</x><y>10</y><w>120</w><h>25</h></coordinates><panel_attributes>userMgr:
 UserManager
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>505</x><y>30</y><w>15</w><h>80</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>375</x><y>60</y><w>140</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
-getCurrentUser( )</panel_attributes><additional_attributes>260;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>375</x><y>75</y><w>140</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-user</panel_attributes><additional_attributes>10;20;260;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>505</x><y>70</y><w>10</w><h>15</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>105</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
-throw UnathorizedException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Text</id><coordinates><x>125</x><y>100</y><w>105</w><h>25</h></coordinates><panel_attributes>fg=#761C8C
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>605</x><y>30</y><w>15</w><h>80</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>475</x><y>60</y><w>140</w><h>20</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+getCurrentUser( )</panel_attributes><additional_attributes>260;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>475</x><y>75</y><w>140</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+user</panel_attributes><additional_attributes>10;20;260;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>605</x><y>70</y><w>10</w><h>15</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>105</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+throw UnathorizedException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>Text</id><coordinates><x>225</x><y>100</y><w>105</w><h>25</h></coordinates><panel_attributes>fg=#761C8C
 [!user.isChef() || 
 !getCurrentService.
 isChefAssigned(user)]
 style=wordwrap
-fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>120</x><y>195</y><w>90</w><h>20</h></coordinates><panel_attributes>fg=#761C8C
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>220</x><y>195</y><w>90</w><h>20</h></coordinates><panel_attributes>fg=#761C8C
 [cook != null &amp;&amp; !cook.isCook()
 style=wordwrap
-fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>225</x><y>195</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
+fontsize=11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>195</y><w>155</w><h>20</h></coordinates><panel_attributes>lt=&lt;.
 throw UseCaseLogicException</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element></diagram>

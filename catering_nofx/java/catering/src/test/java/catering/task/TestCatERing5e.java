@@ -14,7 +14,7 @@ import java.time.Duration;
 public class TestCatERing5e {
     public static void main(String[] args) {
         try {
-            PersistenceManager.executeSqlFileViaTerminal("catering_nofx/database/catering_db_init.sql");
+            PersistenceManager.executeSqlFile("catering_nofx/database/catering_db_init.sql");
 
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             System.out.println("Current user -> " + CatERing.getInstance().getUserManager().getCurrentUser());

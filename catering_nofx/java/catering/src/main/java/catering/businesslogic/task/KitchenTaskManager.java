@@ -25,6 +25,7 @@ public class KitchenTaskManager {
         eventReceivers = new ArrayList<>();
     }
 
+    // todo quando generiamo un nuovo foglio riepilogativo bisogna controllare che quel servizio non abbia giò un foglio riepilogativo generato
     /**
      * DSD 1
      */

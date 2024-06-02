@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Time;
 
 public class Service {
-
     private String name;
     private int id;
     private Date date;
@@ -27,7 +26,9 @@ public class Service {
     public Service(String name) {
         this.name = name;
     }
-    public Service(){}
+
+    public Service() {
+    }
 
     public static ArrayList<Service> loadServiceInfoForEvent(int event_id) {
         ArrayList<Service> result = new ArrayList<>();
@@ -43,7 +44,7 @@ public class Service {
         return result;
     }
 
-    public static Service loadById(int id){
+    public static Service loadById(int id) {
         String query = "SELECT * " +
                 "FROM Services WHERE id = " + id;
         Service serv = new Service();
@@ -90,6 +91,7 @@ public class Service {
     public int getId() {
         return id;
     }
+
     public SummarySheet getSummarySheet() {
         return summarySheet;
     }
@@ -101,7 +103,4 @@ public class Service {
     public String toString() {
         return name + ": " + date + " (" + timeStart + "-" + timeEnd + "), " + participants + " pp.";
     }
-
-
-
 }

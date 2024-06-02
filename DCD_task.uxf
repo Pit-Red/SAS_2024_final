@@ -156,8 +156,8 @@ r2=procedures</panel_attributes><additional_attributes>50;100;90;100;90;20;10;20
 																													java.time.Duration)
 +modifyQuantities(t: Task, amount?: String, 
 																																			doses?: String)
-+markTaskAsContuation(t: Task, initialT: Task)
-+addTaskInfo(t: Task, est: java.Time.Duration, 
++markTaskAsContuation(initialT: Task)
++addTaskInfo(est: java.Time.Duration, 
 																																			amt: String, doses: String)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1971</x><y>1080</y><w>279</w><h>306</h></coordinates><panel_attributes>SummarySheet
 --
 +create(ps: ArrayList&lt;Recipe&gt;)
@@ -172,6 +172,7 @@ r2=procedures</panel_attributes><additional_attributes>50;100;90;100;90;20;10;20
 																																shift: KitchenShift, cook?: User)
 +modifyTask(task: Task, procedure?: 
 CookingProcedure, shift?: KitchenShift, cook?: User)
++deleteTask(t: Task)
 +markCookingProcedureAsDone(t: Task)
 +modifyEstimatedTime(t: Task, est: 
 																													java.time.Duration)
@@ -320,4 +321,6 @@ m1=0..n</panel_attributes><additional_attributes>10;20;200;20;200;940</additiona
 --
 -position: int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1683</x><y>261</y><w>117</w><h>27</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1674</x><y>198</y><w>153</w><h>63</h></coordinates><panel_attributes>lt=-&gt;
 m2=1
-r2=baseProcedure</panel_attributes><additional_attributes>150;30;150;10;10;10;10;50</additional_attributes></element></diagram>
+r2=baseProcedure</panel_attributes><additional_attributes>150;30;150;10;10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>1809</x><y>1440</y><w>342</w><h>162</h></coordinates><panel_attributes>lt=-&gt;
+r2=currentWorkingTask
+m2=0..1</panel_attributes><additional_attributes>10;10;250;10;250;160</additional_attributes></element></diagram>

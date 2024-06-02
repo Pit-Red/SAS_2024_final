@@ -3,12 +3,16 @@ package catering.persistence;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
+import java.util.stream.Collectors;
 
 public class PersistenceManager {
-    private static String url = "jdbc:mysql://localhost:3306/catering?serverTimezone=UTC";
-    private static String username = "root";
-    private static String password = "4321test";
+    private static final String url = "jdbc:mysql://localhost:3306/catering?serverTimezone=UTC";
+    private static final String username = "root";
+    private static final String password = "4321test";
 
     // Usare la seguente stringa per connettersi a un database PostgreSQL
     // private static String url = String.format("jdbc:postgresql://localhost/catering?ssl=true");
@@ -17,7 +21,7 @@ public class PersistenceManager {
 
     public static String escapeString(String input) {
         input = input.replace("\\", "\\\\");
-        input = input.replace("\'", "\\\'");
+        input = input.replace("'", "\\'");
         input = input.replace("\"", "\\\"");
         input = input.replace("\n", "\\n");
         input = input.replace("\t", "\\t");
@@ -55,7 +59,7 @@ public class PersistenceManager {
         int[] result = new int[0];
         try (
                 Connection conn = DriverManager.getConnection(url, username, password);
-                PreparedStatement ps = conn.prepareStatement(parametrizedQuery, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps = conn.prepareStatement(parametrizedQuery, Statement.RETURN_GENERATED_KEYS)
         ) {
             for (int i = 0; i < itemNumber; i++) {
                 handler.handleBatchItem(ps, i);
@@ -97,12 +101,28 @@ public class PersistenceManager {
         return lastId;
     }
 
-    public static void executeSqlFileViaTerminal(String filePath) {
-        String[] command = {
-                "/bin/sh", "-c",
-                "mysql -u" + username + " -p" + password + " -Dcatering < " + filePath
-        };
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        processBuilder.redirectErrorStream(true);
+    private static String readSqlFile(String filePath) throws IOException {
+        return Files.lines(Paths.get(filePath)).collect(Collectors.joining("\n"));
+    }
+
+    public static void executeSqlFile(String filePath) {
+        try {
+            String sqlCommands = readSqlFile(filePath);
+            String[] commands = sqlCommands.split(";");
+
+            Connection conn = DriverManager.getConnection(url, username, password);
+            Statement stmt = conn.createStatement();
+
+            for (String command : commands) {
+                if (!command.trim().isEmpty()) {
+                    stmt.execute(command);
+                }
+            }
+
+            stmt.close();
+            conn.close();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

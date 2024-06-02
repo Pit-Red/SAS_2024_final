@@ -12,7 +12,7 @@ public class Recipe extends CookingProcedure {
     private ArrayList<Preparation> preparations;
 
     public Recipe() {
-
+        preparations = new ArrayList<>();
     }
 
     public Recipe(String name, int cookingProcedureId, int recipeId) {

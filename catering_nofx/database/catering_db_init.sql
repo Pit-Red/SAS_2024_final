@@ -323,8 +323,8 @@ VALUES (1, 'Pasta', 'recipe', 1, NULL),
        (7, 'Grill Chicken', 'preparation', NULL, 5),
        (8, 'Curry Sauce', 'preparation', NULL, 6),
        (9, 'Lasagna', 'recipe', 3, NULL),
-       (10, 'Besciamella', 'preparation', NULL, 7),
-       (11, 'Bake in the oven', 'preparation', NULL, 8);
+       (11, 'Besciamella', 'preparation', NULL, 7),
+       (12, 'Bake in the oven', 'preparation', NULL, 8);
 
 -- Inserting data for table `Menus`
 INSERT INTO `Menus` (`id`, `title`, `owner_id`, `published`)

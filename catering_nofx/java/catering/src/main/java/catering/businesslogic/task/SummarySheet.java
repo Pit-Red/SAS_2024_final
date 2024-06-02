@@ -17,7 +17,6 @@ import java.util.Map;
 public class SummarySheet {
     private static final Map<Integer, SummarySheet> allSummarySheets = new HashMap<>();
     private final int id;
-
     private final ArrayList<Task> tasks;
     private final ArrayList<OrderedProcedure> listedProcedures;
 
