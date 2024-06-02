@@ -9,10 +9,9 @@ import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.shifts.KitchenShift;
 import catering.businesslogic.shifts.Shift;
-import catering.businesslogic.shifts.ShiftManager;
 import catering.businesslogic.user.User;
-import catering.businesslogic.user.UserManager;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class KitchenTaskManager {
@@ -27,7 +26,7 @@ public class KitchenTaskManager {
     }
 
     /**
-     * DCD 1
+     * DSD 1
      */
     public SummarySheet generateSummarySheet(Service service) throws UnauthorizedException, UseCaseLogicException {
         // preliminary checks
@@ -44,7 +43,7 @@ public class KitchenTaskManager {
     }
 
     /**
-     * DCD 1a
+     * DSD 1a
      */
     public SummarySheet openSummarySheet(Service service) throws UnauthorizedException {
         checkUser();
@@ -56,7 +55,7 @@ public class KitchenTaskManager {
     }
 
     /**
-     * DCD 2
+     * DSD 2
      */
     public void addCookingProcedure(CookingProcedure procedure) throws UnauthorizedException, UseCaseLogicException {
         checkUser();
@@ -69,7 +68,7 @@ public class KitchenTaskManager {
     }
 
     /**
-     * DCD 3
+     * DSD 3
      */
     public void orderSheet(CookingProcedure procedure, int position) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
         checkUser();
@@ -86,7 +85,7 @@ public class KitchenTaskManager {
 
 
     /**
-     * DCD 4
+     * DSD 4
      */
     public ArrayList<Shift> checkShiftBoard() throws UnauthorizedException {
         checkUser();
@@ -146,7 +145,10 @@ public class KitchenTaskManager {
         return task;
     }
 
-    public Task modifyTask(Task task, CookingProcedure procedure, KitchenShift shift, User cook) throws UnauthorizedException, UseCaseLogicException {
+    /**
+     * DSD 5b
+     */
+    public Task modifyTask(Task task, CookingProcedure procedure, KitchenShift shift, User cook) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
         checkUser();
 
         if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
@@ -167,9 +169,84 @@ public class KitchenTaskManager {
             if (this.currentSummarySheet.isAlreadyAssigned(procedure)) throw new UseCaseLogicException(procedure + " is already assigned");
         }
 
-        notifyUpdatedTask(task);
+        notifyTaskUpdated(task);
 
         return task;
+    }
+
+
+    /**
+     * DSD 5c
+     */
+    public void deleteTask(Task task) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+        if (!this.currentSummarySheet.getTasks().contains(task)) throw new UseCaseLogicException("The specified task is not contained in the Summary Sheet you're working on");
+
+        this.currentSummarySheet.deleteTask(task);
+
+        this.notifyTaskDeleted(task);
+    }
+
+    /**
+     * DSD 5d
+     */
+    public Task modifyEstimatedTime(Task task, Duration newEstimate) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+
+        this.currentSummarySheet.modifyEstimatedTime(task, newEstimate);
+
+        this.notifyTaskUpdated(task);
+
+        return task;
+    }
+
+    /**
+     * DSD 5e
+     */
+    public Task modifyQuantities(Task task, String newAmount, String newDoses) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+
+        this.currentSummarySheet.modifyQuantities(task, newAmount, newDoses);
+
+        this.notifyTaskUpdated(task);
+
+        return task;
+    }
+
+    /**
+     * DSD 6
+     */
+    public Task markAsContinuation(Task initialTask) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+        if (this.currentWorkingTask == null) throw new UseCaseLogicException("No task is under assignment");
+
+        this.currentSummarySheet.markAsContinuation(this.currentWorkingTask, initialTask);
+
+        this.notifyTaskUpdated(this.currentWorkingTask);
+
+        return this.currentWorkingTask;
+    }
+
+    /**
+     * DSD 7
+     */
+    public Task addTaskInfo(Duration estimate, String amount, String doses) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException {
+        checkUser();
+
+        if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
+        if (this.currentWorkingTask == null) throw new UseCaseLogicException("No task is under assignment");
+
+        this.currentSummarySheet.addTaskInfo(this.currentWorkingTask, estimate, amount, doses);
+
+        return this.currentWorkingTask;
     }
 
 
@@ -177,7 +254,7 @@ public class KitchenTaskManager {
         User u = CatERing.getInstance().getUserManager().getCurrentUser();
         if (u == null || !u.isChef()) throw new UnauthorizedException("User must be authenticated as Chef");
         if (this.currentService != null && !this.currentService.isChefAssigned(u))
-            throw new UnauthorizedException("The selected service is not assigned to: " + u + ", therefore is impossible to proceed");
+            throw new UnauthorizedException("The selected service is not assigned to: " + u + ", therefore it is impossible to proceed");
     }
 
     public void addEventReceiver(TaskEventReceiver receiver) {
@@ -224,9 +301,15 @@ public class KitchenTaskManager {
         }
     }
 
-    private void notifyUpdatedTask(Task task) {
+    private void notifyTaskUpdated(Task task) {
         for (TaskEventReceiver er : this.eventReceivers) {
             er.updateTaskUpdated(currentSummarySheet, task);
+        }
+    }
+
+    private void notifyTaskDeleted(Task task) {
+        for (TaskEventReceiver er : this.eventReceivers) {
+            er.updateTaskDeleted(currentSummarySheet, task);
         }
     }
 }

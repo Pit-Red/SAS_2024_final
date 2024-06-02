@@ -9,6 +9,7 @@ import catering.businesslogic.shifts.Shift;
 import catering.businesslogic.user.User;
 import catering.persistence.PersistenceManager;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -200,15 +201,59 @@ public class SummarySheet {
         return task;
     }
 
-    public Task modifyTask (Task task, CookingProcedure procedure, KitchenShift shift, User cook) throws ItemNotFoundException {
-        if (!tasks.contains(task)) throw new ItemNotFoundException("The selected task does not exists"); //TODO non presente nel dsd
-
+    public Task modifyTask (Task task, CookingProcedure procedure, KitchenShift shift, User cook) {
         if (procedure != null)
             task.setProcedure(procedure);
         if (shift != null)
             task.setShift(shift);
         if (cook != null)
             task.setCook(cook);
+
+        return task;
+    }
+
+    public void deleteTask(Task task) {
+        this.listedProcedures.add(new OrderedProcedure(task.getProcedure(), this.listedProcedures.size()));
+        this.tasks.remove(task);
+    }
+
+    public Task modifyEstimatedTime(Task task, Duration newEstimate) throws ItemNotFoundException, UseCaseLogicException {
+        if (!tasks.contains(task)) throw new ItemNotFoundException("The selected task does not exists");
+        //if (newEstimate.compareTo(task.getShift().getDuration()) > 0) throw new UseCaseLogicException("Shift doesn't cover task's estimated time");
+
+        task.setTimeToComplete(newEstimate);
+
+        return task;
+    }
+
+    public Task modifyQuantities(Task task, String amount, String doses) throws ItemNotFoundException {
+        if (!tasks.contains(task)) throw new ItemNotFoundException("The selected task does not exists");
+
+        if (amount != null) {
+            task.setAmount(amount);
+        }
+        if (doses != null) {
+            task.setDoses(doses);
+        }
+
+        return task;
+    }
+
+    public Task markAsContinuation(Task task, Task initialTask) throws ItemNotFoundException {
+        if (!tasks.contains(task) || !tasks.contains(initialTask))
+            throw new ItemNotFoundException("Either the selected task or the initial task don't exist");
+
+        task.setInitialTask(initialTask);
+
+        return task;
+    }
+
+    public Task addTaskInfo(Task task, Duration estimate, String amount, String doses) throws ItemNotFoundException {
+        if (!tasks.contains(task)) throw new ItemNotFoundException("The selected task does not exists");
+
+        task.setTimeToComplete(estimate);
+        task.setAmount(amount);
+        task.setDoses(doses);
 
         return task;
     }
