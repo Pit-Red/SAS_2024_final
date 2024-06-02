@@ -95,13 +95,6 @@ public class KitchenTaskManager {
 
     /**
      * DCD 5
-     *
-     * @param procedure
-     * @param shift
-     * @param cook
-     * @return
-     * @throws UnauthorizedException
-     * @throws UseCaseLogicException
      */
     public Task assignCookingProcedure(CookingProcedure procedure, KitchenShift shift, User cook) throws UnauthorizedException, UseCaseLogicException {
         checkUser();
@@ -128,12 +121,7 @@ public class KitchenTaskManager {
     }
 
     /**
-     * DCD 5a
-     * @param task
-     * @return
-     * @throws UnauthorizedException
-     * @throws UseCaseLogicException
-     * @throws ItemNotFoundException
+     * DSD 5a
      */
     public Task markCookingProcedureAsDone(Task task) throws UnauthorizedException, UseCaseLogicException, ItemNotFoundException{
         checkUser();
@@ -152,10 +140,8 @@ public class KitchenTaskManager {
         checkUser();
 
         if (this.currentSummarySheet == null) throw new UseCaseLogicException("No Summary Sheet specified");
-
-        if (!this.currentSummarySheet.getTasks().contains(task)) throw new UseCaseLogicException("The specified task is not present in this Summary Sheet");
-
-        if (cook != null && !cook.isCook()) throw  new UseCaseLogicException("The specified user in not acutely a cook");
+        if (!this.currentSummarySheet.getTasks().contains(task)) throw new UseCaseLogicException("The specified task is not contained in the Summary Sheet you're working on");
+        if (cook != null && !cook.isCook()) throw  new UseCaseLogicException("The specified user in not a cook");
 
         if (cook != null && shift != null){
             if(!CatERing.getInstance().getShiftMgr().isAvailable(cook, shift)) throw new UseCaseLogicException(cook + " is not available for the specified shift");
@@ -166,8 +152,10 @@ public class KitchenTaskManager {
         }
 
         if (procedure != null){
-            if (this.currentSummarySheet.isAlreadyAssigned(procedure)) throw new UseCaseLogicException(procedure + " is already assigned");
+            if (this.currentSummarySheet.isAlreadyAssigned(procedure)) throw new UseCaseLogicException(procedure + " is already assigned in another task");
         }
+
+        this.currentSummarySheet.modifyTask(task, procedure, shift, cook);
 
         notifyTaskUpdated(task);
 
@@ -275,6 +263,10 @@ public class KitchenTaskManager {
 
     public Service getCurrentService() {
         return currentService;
+    }
+
+    public Task getCurrentWorkingTask() {
+        return this.currentWorkingTask;
     }
 
     private void notifySummarySheetCreated(SummarySheet sheet) {

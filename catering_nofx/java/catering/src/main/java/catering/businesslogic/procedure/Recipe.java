@@ -17,9 +17,12 @@ public class Recipe extends CookingProcedure {
 
     public Recipe(String name, int cookingProcedureId, int recipeId) {
         super(cookingProcedureId, recipeId, name, ProcedureType.RECIPE);
+        this.preparations = new ArrayList<>();
     }
 
-
+    public void addPreparation (Preparation preparation) {
+        this.preparations.add(preparation);
+    }
 
     @Override
     public boolean equals(Object obj) {

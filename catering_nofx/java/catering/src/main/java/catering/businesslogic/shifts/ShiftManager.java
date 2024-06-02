@@ -15,4 +15,8 @@ public class ShiftManager {
         // visto che il caso d'uso non è da gestire usppongo che il cuoco sia sempre disponibile
         return true;
     }
+
+    public ArrayList<Shift> getShiftsFromService (Service service){
+        return new ArrayList<>();
+    }
 }

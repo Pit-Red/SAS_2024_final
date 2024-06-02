@@ -36,13 +36,11 @@ public class Task {
     public Task(CookingProcedure procedure, KitchenShift shift, User cook) {
         this.id = 0;
         this.procedure = procedure;
+        this.timeToComplete = Duration.ZERO;
         this.shift = shift;
         this.cook = cook;
         this.completed = false;
         this.toPrepare = false;
-        if (cook != null){
-            this.cook = cook;
-        }
     }
 
     public Task(CookingProcedure procedure, KitchenShift shift) {
@@ -184,17 +182,17 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", timeToComplete=" + timeToComplete +
-                ", completed=" + completed +
-                ", toPrepare=" + toPrepare +
-                ", amount='" + amount + '\'' +
-                ", doses='" + doses + '\'' +
-                ", procedure=" + procedure +
-                ", cook=" + cook +
-                ", shift=" + shift +
-                ", initialTask=" + initialTask +
+        return "Task{\n" +
+                "\tid=" + id +
+                "\t, timeToComplete=" + timeToComplete + "\n" +
+                "\t, completed=" + completed + "\n" +
+                "\t, toPrepare=" + toPrepare + "\n" +
+                "\t, amount='" + amount + '\'' + "\n" +
+                "\t, doses='" + doses + '\'' + "\n" +
+                "\t, procedure=" + procedure + "\n" +
+                "\t, cook=" + cook + "\n" +
+                "\t, shift=" + shift + "\n" +
+                "\t, initialTask=" + initialTask + "\n" +
                 '}';
     }
 }

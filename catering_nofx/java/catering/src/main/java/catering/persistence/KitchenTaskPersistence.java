@@ -37,16 +37,40 @@ public class KitchenTaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateTaskCreated(SummarySheet sheet, Task t) {
-
+        String insertQuery = "INSERT INTO Tasks (cooking_procedure_id, cook_id, shift_id, initial_task, time_to_complete, completed, amount, doses, to_prepare) VALUES ("
+                + t.getProcedure().getId() + ", "
+                + (t.getCook() != null ? t.getCook().getId() : "NULL") + ", "
+                + (t.getShift() != null ? t.getShift().getId() : "NULL") + ", "
+                + (t.getInitialTask() != null ? t.getInitialTask().getId() : "NULL") + ", "
+                + (t.getTimeToComplete() != null ? "'" + t.getTimeToComplete().toString() + "'" : "NULL") + ", "
+                + t.isCompleted() + ", "
+                + (t.getAmount() != null ? "'" + t.getAmount() + "'" : "NULL") + ", "
+                + (t.getDoses() != null ? "'" + t.getDoses() + "'" : "NULL") + ", "
+                + t.getToPrepare()
+                + ")";
+        PersistenceManager.executeUpdate(insertQuery);
     }
 
     @Override
     public void updateTaskUpdated(SummarySheet sheet, Task t) {
-
+        String updateQuery = "UPDATE Tasks SET "
+                + "cooking_procedure_id = " + t.getProcedure().getId() + ", "
+                + "cook_id = " + (t.getCook() != null ? t.getCook().getId() : "NULL") + ", "
+                + "shift_id = " + (t.getShift() != null ? t.getShift().getId() : "NULL") + ", "
+                + "initial_task = " + (t.getInitialTask() != null ? t.getInitialTask().getId() : "NULL") + ", "
+                + "time_to_complete = " + (t.getTimeToComplete() != null ? "'" + t.getTimeToComplete().toString() + "'" : "NULL") + ", "
+                + "completed = " + t.isCompleted() + ", "
+                + "amount = " + (t.getAmount() != null ? "'" + t.getAmount() + "'" : "NULL") + ", "
+                + "doses = " + (t.getDoses() != null ? "'" + t.getDoses() + "'" : "NULL") + ", "
+                + "to_prepare = " + t.getToPrepare()
+                + " WHERE id = " + t.getId();
+        PersistenceManager.executeUpdate(updateQuery);
     }
 
+    // todo eliminaredal database i riferimenti del task nella tabella "ListedTasks"
     @Override
     public void updateTaskDeleted(SummarySheet sheet, Task t) {
-
+        String deleteQuery = "DELETE FROM Tasks WHERE id = " + t.getId();
+        PersistenceManager.executeUpdate(deleteQuery);
     }
 }

@@ -96,4 +96,13 @@ public class PersistenceManager {
     public static int getLastId() {
         return lastId;
     }
+
+    public static void executeSqlFileViaTerminal(String filePath) {
+        String[] command = {
+                "/bin/sh", "-c",
+                "mysql -u" + username + " -p" + password + " -Dcatering < " + filePath
+        };
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        processBuilder.redirectErrorStream(true);
+    }
 }

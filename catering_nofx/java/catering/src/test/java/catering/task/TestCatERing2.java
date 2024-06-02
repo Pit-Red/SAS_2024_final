@@ -5,6 +5,7 @@ import catering.businesslogic.errors.UnauthorizedException;
 import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.event.Service;
 import catering.businesslogic.procedure.CookingProcedure;
+import catering.persistence.PersistenceManager;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,6 +15,8 @@ public class TestCatERing2 {
     // Testing addCookingProcedure function
     public static void main(String[] args) {
         try {
+            PersistenceManager.executeSqlFileViaTerminal("catering_nofx/database/catering_db_init.sql");
+
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             System.out.println("Current user -> " + CatERing.getInstance().getUserManager().getCurrentUser());
 

@@ -1,11 +1,11 @@
 package catering.businesslogic.task;
 
 import catering.businesslogic.errors.ItemNotFoundException;
+import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.procedure.Recipe;
 import catering.businesslogic.shifts.KitchenShift;
-import catering.businesslogic.shifts.Shift;
 import catering.businesslogic.user.User;
 import catering.persistence.PersistenceManager;
 
@@ -184,12 +184,14 @@ public class SummarySheet {
     }
 
     public boolean isAlreadyAssigned(CookingProcedure procedure) {
-        return this.listedProcedures.contains((OrderedProcedure) procedure);
+        return this.tasks.stream()
+                .anyMatch(task -> task.getProcedure().equals(procedure));
     }
 
     public Task addAssignment(CookingProcedure procedure, KitchenShift shift, User cook) {
         Task task = new Task(procedure, shift, cook);
         this.tasks.add(task);
+        this.listedProcedures.removeIf(orderedProcedure -> orderedProcedure.getBaseProcedure().equals(procedure));
         return task;
     }
 

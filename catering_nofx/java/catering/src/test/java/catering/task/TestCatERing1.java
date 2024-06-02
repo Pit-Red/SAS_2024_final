@@ -8,12 +8,15 @@ import catering.businesslogic.event.Service;
 import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.Recipe;
 import catering.businesslogic.task.SummarySheet;
+import catering.persistence.PersistenceManager;
 
 import java.util.ArrayList;
 
 public class TestCatERing1 {
     public static void main(String[] args) {
         try {
+            PersistenceManager.executeSqlFileViaTerminal("catering_nofx/database/catering_db_init.sql");
+
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             System.out.println("Current user -> " + CatERing.getInstance().getUserManager().getCurrentUser());
 
@@ -35,5 +38,4 @@ public class TestCatERing1 {
             System.out.println("An exception occurred: " + e.getMessage());
         }
     }
-
 }

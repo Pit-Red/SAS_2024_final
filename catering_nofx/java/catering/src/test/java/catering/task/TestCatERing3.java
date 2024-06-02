@@ -9,6 +9,7 @@ import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.task.KitchenTaskManager;
 import catering.businesslogic.task.SummarySheet;
+import catering.persistence.PersistenceManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +19,11 @@ import java.util.Random;
 public class TestCatERing3 {
     public static void main(String[] args) {
         try {
+            PersistenceManager.executeSqlFileViaTerminal("catering_nofx/database/catering_db_init.sql");
+
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             Service service = CatERing.getInstance().getEventManager().getServiceById(1);
+            CatERing.getInstance().getKitchenTaskMgr().generateSummarySheet(service);
 
             // Opening the associated summary sheet
             SummarySheet summarySheet = CatERing.getInstance().getKitchenTaskMgr().openSummarySheet(service);

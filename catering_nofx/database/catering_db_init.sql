@@ -190,7 +190,7 @@ CREATE TABLE `Tasks`
     `id`                   int(11)      NOT NULL AUTO_INCREMENT,
     `cooking_procedure_id` int(11)      NOT NULL,
     `cook_id`              int(11)      DEFAULT NULL,
-   -- `shift_id`             int(11)      NOT NULL,
+    `shift_id`             int(11)      DEFAULT NULL,
     `initial_task`         int(11)      DEFAULT NULL,
     `time_to_complete`     varchar(20)  DEFAULT NULL,
     `completed`            boolean      DEFAULT false,

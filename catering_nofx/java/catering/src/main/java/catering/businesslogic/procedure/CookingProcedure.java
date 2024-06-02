@@ -34,16 +34,20 @@ public abstract class CookingProcedure {
         PersistenceManager.executeQuery(query, rs -> {
             int id = rs.getInt("id");
             String name = rs.getString("name");
+            String type = rs.getString("type");
+
             if (allCookingProcedures.containsKey(id)) {
                 CookingProcedure procedure = allCookingProcedures.get(id);
                 procedure.setName(rs.getString("name"));
             } else {
                 CookingProcedure procedure;
-                if (rs.getString("type").equals("preparation")) {
+
+                if (type.equals("preparation")) {
                     procedure = new Preparation(name, id, rs.getInt("fk_referenced_preparation"));
                     allPreparations.put(procedure.getForeignKeyId(), (Preparation) procedure);
                 } else {
                     procedure = new Recipe(name, id, rs.getInt("fk_referenced_recipe"));
+                    loadPreparationsForRecipe((Recipe) procedure);
                     allRecipes.put(procedure.getForeignKeyId(), (Recipe) procedure);
                 }
 
@@ -55,6 +59,30 @@ public abstract class CookingProcedure {
         proc.sort(Comparator.comparing(CookingProcedure::getName));
 
         return proc;
+    }
+
+    private static void loadPreparationsForRecipe(Recipe recipe) {
+        int recipeId = recipe.getId();
+
+        String preparationQuery = "SELECT p.id, cp.name, cp.type, cp.fk_referenced_preparation " +
+                "FROM Preparations p " +
+                "JOIN RecipePreparations rp ON p.id = rp.preparation_id " +
+                "JOIN CookingProcedures cp ON cp.id = p.id " +
+                "WHERE rp.recipe_id = " + recipeId;
+
+        PersistenceManager.executeQuery(preparationQuery, rs -> {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            int fkReferencedPreparation = rs.getInt("fk_referenced_preparation");
+
+            // Check if the preparation already exists in the map and create a new one if it does not
+            Preparation prep = allPreparations.containsKey(id) ?
+                    allPreparations.get(id) :
+                    new Preparation(name, id, fkReferencedPreparation);
+
+            // Assuming a method to set or check other details if needed based on 'type' or other columns
+            recipe.addPreparation(prep);
+        });
     }
 
     public static CookingProcedure loadCookingProcedureById(int id) {
@@ -73,12 +101,26 @@ public abstract class CookingProcedure {
 
     public static Recipe loadRecipeById(int id) {
         if (allRecipes.containsKey(id)) return allRecipes.get(id);
+
         Recipe rec = new Recipe();
-        String query = "SELECT * FROM CookingProcedures WHERE fk_referenced_recipe = " + id;
-        PersistenceManager.executeQuery(query, rs -> {
+        // SQL query to load the recipe from the database
+        String recipeQuery = "SELECT * FROM CookingProcedures WHERE id = " + id;
+        PersistenceManager.executeQuery(recipeQuery, rs -> {
+            rec.setId(rs.getInt("id"));
             rec.setName(rs.getString("name"));
-            rec.setForeignKeyId(id);
+            rec.setForeignKeyId(rs.getInt("fk_referenced_recipe"));
             allRecipes.put(rec.getForeignKeyId(), rec);
+        });
+
+        // SQL query to load the preparations associated with this recipe
+        String preparationQuery = "SELECT p.* FROM Preparations p " +
+                "JOIN RecipePreparations rp ON p.id = rp.preparation_id " +
+                "WHERE rp.recipe_id = " + id;
+
+        PersistenceManager.executeQuery(preparationQuery, rs -> {
+            int prepId = rs.getInt("id");
+            Preparation prep = allPreparations.get(prepId);
+            rec.addPreparation(prep);
         });
         return rec;
     }
