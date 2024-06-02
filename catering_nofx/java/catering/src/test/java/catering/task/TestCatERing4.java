@@ -2,14 +2,10 @@ package catering.task;
 
 import catering.businesslogic.CatERing;
 import catering.businesslogic.errors.UnauthorizedException;
-import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.event.Service;
-import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.task.SummarySheet;
 
-import java.util.ArrayList;
-
-public class TestCatERing1a {
+public class TestCatERing4 {
     public static void main(String[] args) {
         try {
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
@@ -19,9 +15,7 @@ public class TestCatERing1a {
 
             CatERing.getInstance().getKitchenTaskMgr().openSummarySheet(service);
 
-            SummarySheet summarySheet = SummarySheet.loadById(1);
-
-            System.out.println(summarySheet.equals(CatERing.getInstance().getKitchenTaskMgr().getCurrentSummarySheet()));
+            // todo
         } catch (UnauthorizedException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }

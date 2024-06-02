@@ -19,7 +19,7 @@ public class Preparation extends CookingProcedure {
     }
 
     public String toString() {
-        return String.format("{%s, %d, %d}", name, id, foreignKeyId);
+        return String.format("{Preparation, %s, %d, %d}", name, id, foreignKeyId);
     }
 
 }
