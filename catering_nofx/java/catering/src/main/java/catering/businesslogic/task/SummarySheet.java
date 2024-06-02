@@ -190,7 +190,7 @@ public class SummarySheet {
     public Task addAssignment(CookingProcedure procedure, KitchenShift shift, User cook) {
         Task task = new Task(procedure, shift, cook);
         this.tasks.add(task);
-        this.listedProcedures.removeIf(orderedProcedure -> orderedProcedure.getBaseProcedure().equals(procedure));
+        this.listedProcedures.remove(procedure);
         return task;
     }
 

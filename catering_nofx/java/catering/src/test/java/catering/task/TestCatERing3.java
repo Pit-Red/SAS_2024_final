@@ -19,7 +19,7 @@ import java.util.Random;
 public class TestCatERing3 {
     public static void main(String[] args) {
         try {
-            PersistenceManager.executeSqlFile("database/catering_db_init.sql");
+            PersistenceManager.executeSqlFile("catering_nofx/database/catering_db_init.sql");
 
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             Service service = CatERing.getInstance().getEventManager().getServiceById(1);

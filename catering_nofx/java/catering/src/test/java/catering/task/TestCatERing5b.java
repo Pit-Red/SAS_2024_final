@@ -9,6 +9,7 @@ import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.task.SummarySheet;
 import catering.businesslogic.task.Task;
+import catering.persistence.PersistenceManager;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,6 +17,8 @@ import java.util.Random;
 public class TestCatERing5b {
     public static void main(String[] args){
         try {
+            PersistenceManager.executeSqlFile("catering_nofx/database/catering_db_init.sql");
+
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             System.out.println("Current user -> " + CatERing.getInstance().getUserManager().getCurrentUser());
 

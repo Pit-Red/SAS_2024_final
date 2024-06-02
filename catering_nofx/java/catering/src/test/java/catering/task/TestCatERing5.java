@@ -6,12 +6,15 @@ import catering.businesslogic.errors.UseCaseLogicException;
 import catering.businesslogic.event.Service;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.task.SummarySheet;
+import catering.persistence.PersistenceManager;
 
 import java.util.ArrayList;
 
 public class TestCatERing5 {
     public static void main(String[] args){
         try {
+            PersistenceManager.executeSqlFile("catering_nofx/database/catering_db_init.sql");
+
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             System.out.println("Current user -> " + CatERing.getInstance().getUserManager().getCurrentUser());
 

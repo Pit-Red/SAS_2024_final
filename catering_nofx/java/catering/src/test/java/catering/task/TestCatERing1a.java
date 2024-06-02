@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class TestCatERing1a {
     public static void main(String[] args) {
         try {
-            PersistenceManager.executeSqlFile("database/catering_db_init.sql");
+            PersistenceManager.executeSqlFile("catering_nofx/database/catering_db_init.sql");
 
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             System.out.println("Current user -> " + CatERing.getInstance().getUserManager().getCurrentUser());

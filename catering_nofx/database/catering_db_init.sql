@@ -358,3 +358,7 @@ VALUES (1), (2), (3);
 INSERT INTO `Services` (`id`, `event_id`, `name`, `used_menu_id`, `service_date`, `time_start`, `time_end`, `expected_participants`, `chef_id`, `summary_sheet_id`)
 VALUES (1, 1, 'Lunch Service', 1, '2023-07-15', '12:00:00', '15:00:00', 200, 5, 1),
        (2, 2, 'Dinner Service', 2, '2023-08-01', '18:00:00', '21:00:00', 300, 2, 2);
+
+INSERT INTO `ListedProcedures` (summary_sheet_id, procedure_id, position)
+VALUES (1, 1, 0),
+       (1, 5, 1)

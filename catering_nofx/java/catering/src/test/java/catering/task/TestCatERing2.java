@@ -15,12 +15,11 @@ public class TestCatERing2 {
     // Testing addCookingProcedure function
     public static void main(String[] args) {
         try {
-            PersistenceManager.executeSqlFile("database/catering_db_init.sql");
+            PersistenceManager.executeSqlFile("catering_nofx/database/catering_db_init.sql");
 
             CatERing.getInstance().getUserManager().fakeLogin("Eva");
             System.out.println("Current user -> " + CatERing.getInstance().getUserManager().getCurrentUser());
 
-            // todo sembra che quando viene caricato un summary sheet già esistente nel db non vengono caricate correttamente tutte le procedure relative
             Service service = CatERing.getInstance().getEventManager().getServiceById(1);
 
             System.out.println("Opening an already generated summary sheet starting from -> " + service);

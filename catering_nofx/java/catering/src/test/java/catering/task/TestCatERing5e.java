@@ -32,14 +32,14 @@ public class TestCatERing5e {
 
             System.out.println("Task before being modified -> " + taskToBeModified);
 
-            //CatERing.getInstance().getKitchenTaskMgr().modifyQuantities(taskToBeModified, );
+            CatERing.getInstance().getKitchenTaskMgr().modifyQuantities(taskToBeModified, "200 grams", "2");
 
             System.out.println("Task after being modified -> " + taskToBeModified);
 
             System.out.println(taskToBeModified.getAmount());
             System.out.println(taskToBeModified.getDoses());
         }
-        catch (UnauthorizedException | UseCaseLogicException  e){
+        catch (UnauthorizedException | UseCaseLogicException | ItemNotFoundException  e){
             System.out.println("An exception occurred: " + e.getMessage());
         }
     }
