@@ -67,7 +67,6 @@ public class KitchenTaskPersistence implements TaskEventReceiver {
         PersistenceManager.executeUpdate(updateQuery);
     }
 
-    // todo eliminaredal database i riferimenti del task nella tabella "ListedTasks"
     @Override
     public void updateTaskDeleted(SummarySheet sheet, Task t) {
         String deleteQuery = "DELETE FROM Tasks WHERE id = " + t.getId();
