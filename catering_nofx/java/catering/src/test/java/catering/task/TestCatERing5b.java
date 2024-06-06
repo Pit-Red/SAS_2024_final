@@ -9,6 +9,7 @@ import catering.businesslogic.procedure.CookingProcedure;
 import catering.businesslogic.procedure.OrderedProcedure;
 import catering.businesslogic.task.SummarySheet;
 import catering.businesslogic.task.Task;
+import catering.businesslogic.user.User;
 import catering.persistence.PersistenceManager;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class TestCatERing5b {
             SummarySheet sheet =  CatERing.getInstance().getKitchenTaskMgr().openSummarySheet(service);
 
             // assigning a cooking procedure in order to create the task
-            CatERing.getInstance().getKitchenTaskMgr().assignCookingProcedure(sheet.getListedOrderedProcedures().get(0), null, null);
+            CatERing.getInstance().getKitchenTaskMgr().assignCookingProcedure(sheet.getListedOrderedProcedures().get(0), null, User.loadUser("Dana"));
 
             Task taskToBeModified = sheet.getTasks().get(0);
 

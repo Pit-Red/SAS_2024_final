@@ -91,7 +91,7 @@ public class KitchenTaskManager {
     public ArrayList<Shift> checkShiftBoard() throws UnauthorizedException {
         checkUser();
 
-        return null;
+        return CatERing.getInstance().getShiftMgr().getShiftsFromService(this.currentService);
     }
 
     /**

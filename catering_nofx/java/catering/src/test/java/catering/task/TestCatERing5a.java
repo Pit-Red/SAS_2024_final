@@ -25,15 +25,15 @@ public class TestCatERing5a {
 
             Task taskToMarkAsDone = sheet.getTasks().get(0);
 
-            System.out.println(taskToMarkAsDone.getToPrepare());
-            System.out.println(!taskToMarkAsDone.isCompleted());
+            System.out.println("toPrepare -> " + taskToMarkAsDone.getToPrepare());
+            System.out.println("isCompleted -> " + taskToMarkAsDone.isCompleted());
 
             System.out.println("Task before being marked as done -> " + taskToMarkAsDone);
             CatERing.getInstance().getKitchenTaskMgr().markCookingProcedureAsDone(taskToMarkAsDone);
             System.out.println("Task after being marked as done -> " + taskToMarkAsDone);
 
-            System.out.println(!taskToMarkAsDone.getToPrepare());
-            System.out.println(taskToMarkAsDone.isCompleted());
+            System.out.println("toPrepare -> " + taskToMarkAsDone.getToPrepare());
+            System.out.println("isCompleted -> " + taskToMarkAsDone.isCompleted());
         }
         catch (UnauthorizedException | UseCaseLogicException | ItemNotFoundException e){
             System.out.println("An exception occurred: " + e.getMessage());

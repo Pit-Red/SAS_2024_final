@@ -18,7 +18,8 @@ public class TestCatERing4 {
 
             CatERing.getInstance().getKitchenTaskMgr().openSummarySheet(service);
 
-            // todo
+            CatERing.getInstance().getKitchenTaskMgr().checkShiftBoard();
+
         } catch (UnauthorizedException e) {
             System.out.println("An exception occurred: " + e.getMessage());
         }

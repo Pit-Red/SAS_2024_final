@@ -40,7 +40,7 @@ public class Task {
         this.shift = shift;
         this.cook = cook;
         this.completed = false;
-        this.toPrepare = false;
+        this.toPrepare = true;
     }
 
     public Task(CookingProcedure procedure, KitchenShift shift) {
